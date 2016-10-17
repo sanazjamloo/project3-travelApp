@@ -5,6 +5,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var moment = require('moment-timezone');
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
 
 //app settings
 var app = express();
@@ -19,13 +22,6 @@ app.use(methodOverride('_method'));
 //routers
 app.use('/', require('./controllers/index.js'));
 // app.use('/todos', require('./controllers/todos.js'));
-
-
-
-//home
-app.get('/', function(req,res) {
-  res.send('This is our Home Page');
-});
 
 app.listen(port, function() {
   console.info('Server is responding on port ' + port + ' ',
