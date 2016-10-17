@@ -21,7 +21,7 @@ app.use(methodOverride('_method'));
 
 //routers
 app.use('/', require('./controllers/index.js'));
-// app.use('/todos', require('./controllers/todos.js'));
+
 
 app.listen(port, function() {
   console.info('Server is responding on port ' + port + ' ',
