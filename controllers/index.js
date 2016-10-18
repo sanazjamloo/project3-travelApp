@@ -3,13 +3,6 @@ var router  = express.Router();
 var Trip = require('../models/trip.js');
 var User = require('../models/user.js');
 
-
-//index
-router.get('/', function(req,res) {
-  res.send('hello world');
-});
-
-
 //NOTE we are sending data to Angular.
 //We are not sending views to a user.
 
@@ -33,7 +26,7 @@ router.get('/location' , function(req, res){
         console.log('username is ', userLooper.username);
         userLooper.trips.forEach(function(tripLooper){
           if (tripLooper.place.search(new RegExp(place, 'i')) !== -1){
-            result.push(tripLooper);
+            result.push(userLooper);
           }
         });
       });
@@ -47,11 +40,18 @@ router.get('/location' , function(req, res){
     .then(function(){
       res.json(result);
     });
-
-
 });
 
+router.get('/user/:userId/trips', function(req, res){
 
+  User.findOne({userId: req.params.userId}).exec()
+    .then(function(data){
+      res.json(data)
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+});
 
 
 
