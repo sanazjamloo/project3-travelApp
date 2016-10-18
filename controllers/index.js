@@ -7,16 +7,21 @@ var LocalStrategy = require('passport-local').Strategy;
 
 
 // //SIGN UP ROUTE
-// router.post('/signup', function(req, res) {
-//   User.register(new User(
-//     { username : req.body.username}),
-//     req.body.password, function(err, user) {
-//       if (err) {
-//         return res.json({ user : user });
-//       }
-//
-//       });
-//   });
+router.post('/signup', function(req, res){
+  User.register(new User({
+    username: req.body.username,
+    trips: [],
+    userId: Date.now().toString()
+    }),
+    req.body.password,
+    function(err, user) {
+      if (err) {
+        res.send(err)
+      } else {
+        res.send('user created');
+      }
+    }); // end function
+});
 
 
 
