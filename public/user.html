@@ -25,12 +25,28 @@
   </form>
 </div>
 
-<!-- Flexbox Cards will go here.  For now we're making sure the data is being displayed -->
+<div class="module-card-wrap">
+  <div class="module-card" ng-repeat="trip in users.all[0].trips">
+    <div class="module-card-title">{{trip.place}}</div>
+    <div class="module-card-meta">
+      <div class="module-card-category">
+        <span class="fa fa-tag"></span>
+        <span>{{trip.dateStart | date: 'mediumDate'}}</span>
+      </div>
+      <div class="module-card-author">
+        <span class="fa fa-user"></span>
+        <span>{{trip.dateEnd | date: 'mediumDate'}}</span>
+      </div>
+    </div> <!-- /module-card-meta -->
 
-<p>
-  Username: {{user.username}}, trips: {{user.trips}}, userId: {{user.userId}}
-</p>
+    <div class="module-card-bottom">
+      <img src="{{trip.imageUrl}}" alt="cheesecake" class="module-card-img" />
 
-<p>
-  Trip 2 start date: {{user.trips[1].dateStart}}, Trip 2 end date: {{user.trips[1].dateEnd}}, Trip 2 description: {{user.trips[1].description}}, etc.
-</p>
+      <div>
+        <p>{{trip.description}}</p>
+      </div>
+
+      <button class="module-card-button">See More</button>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 (function(){
-  angular.module('travelapp', ['ui.router'])
+  angular.module('travelApp', ['ui.router'])
     .config(MainRouter);
 
   MainRouter.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
@@ -28,6 +28,6 @@
       enabled: true,
       requireBase: false
     });
-    
+
   } // end MainRouter function
 })();
