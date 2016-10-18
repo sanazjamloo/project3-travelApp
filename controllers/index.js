@@ -27,7 +27,18 @@ router.get('/location' , function(req, res){
   //find the relevant data in the database
   User.find().exec()
     .then(function(data){
-      result = data;
+      //data is a list of users
+      //loop through the usrs and return the trips where trip.place === place
+      data.forEach(function(userLooper){
+        console.log('username is ', userLooper.username);
+        userLooper.trips.forEach(function(tripLooper){
+          if (tripLooper.place.search(new RegExp(place, 'i')) !== -1){
+            result.push(tripLooper);
+          }
+        });
+      });
+
+      console.log('after looping through users, result is ', result);
     })
     .catch(function(err){
       console.log(err);
