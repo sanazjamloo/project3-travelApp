@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 
 
-var tripSchema = mongoose.Schema({
+var TripSchema = mongoose.Schema({
   dateStart: Date,
   dateEnd: Date,
   description: String,
@@ -14,4 +14,4 @@ var tripSchema = mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('Trip', tripSchema);
+module.exports = mongoose.model('Trip', TripSchema);

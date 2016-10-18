@@ -7,7 +7,7 @@ var methodOverride = require('method-override');
 var moment = require('moment-timezone');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-
+mongoose.connect('mongodb://localhost/project3-travelApp');
 
 //app settings
 var app = express();
