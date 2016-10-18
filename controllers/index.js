@@ -23,6 +23,22 @@ router.post('/signup', function(req, res){
     }); // end function
 });
 
+//LOG IN ROUTE
+router.post('/login', passport.authenticate('local'), function(req, res) {
+  req.session.save(function(err) {
+    if (err) {
+      return next(err);
+    } else {
+      console.warn('WRITE CODE TO SEND THE USER TO THE RIGHT PLACE');
+      console.log('authenicated');
+    }
+  });
+});
+
+
+
+
+
 
 
 //NOTE we are sending data to Angular.
