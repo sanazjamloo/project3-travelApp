@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var tripSchema = require('./trip.js').schema;
+var TripSchema = require('./trip.js').schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
-var userSchema = mongoose.Schema({
+var UserSchema = mongoose.Schema({
 	username: String,
 	password: String,
-	trips: [tripSchema],
+	trips: [TripSchema],
 	userId: String
 });
 
@@ -15,4 +15,4 @@ var userSchema = mongoose.Schema({
 
 UserSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', UserSchema);

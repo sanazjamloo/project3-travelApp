@@ -7,7 +7,7 @@ var methodOverride = require('method-override');
 var moment = require('moment-timezone');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-
+mongoose.connect('mongodb://localhost/project3-travelApp');
 
 //app settings
 var app = express();
@@ -20,7 +20,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
 //routers
+app.use('/private', require('./controllers/private.js'));
 app.use('/', require('./controllers/index.js'));
+
 
 
 app.listen(port, function() {
