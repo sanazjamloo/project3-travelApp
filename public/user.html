@@ -1,0 +1,36 @@
+<div class="left-sidebar">
+  <form class="new-destination" action="index.html" method="post">
+    <label for="city">City: </label>
+    <input type="text" name="city" value=""><br>
+    <label for="state">State: </label>
+    <input type="text" name="state" value=""><br>
+    <label for="country">Country: </label>
+    <input type="text" name="country" value=""><br>
+    <label for="dateStart">Start: </label>
+    <input type="date" name="dateStart" value=""><br>
+    <label for="dateEnd">End: </label>
+    <input type="date" name="dateEnd" value=""><br>
+    <label for="description">Description: </label>
+    <textarea name="description" rows="6" cols="25"></textarea><br>
+    <label for="imageUrl">Image URL: </label>
+    <input type="url" name="imageUrl" value=""><br>
+    <input type="submit" name="submit" value="Add Destination">
+  </form>
+</div>
+
+<div class="search-form">
+  <form class="search" action="index.html" method="post">
+    <label for="search">Search: </label>
+    <input type="text" name="search" placeholder="city...">
+  </form>
+</div>
+
+<!-- Flexbox Cards will go here.  For now we're making sure the data is being displayed -->
+
+<p>
+  Username: {{user.username}}, trips: {{user.trips}}, userId: {{user.userId}}
+</p>
+
+<p>
+  Trip 2 start date: {{user.trips[1].dateStart}}, Trip 2 end date: {{user.trips[1].dateEnd}}, Trip 2 description: {{user.trips[1].description}}, etc.
+</p>
