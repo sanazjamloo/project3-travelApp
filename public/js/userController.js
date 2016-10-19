@@ -2,13 +2,12 @@
   angular.module('travelApp')
     .controller('UserController', UserController);
 
-    function UserController($scope, $http){
+    function UserController($scope, $http, $state){
 
       var self = this;
       this.trips = [];
 
       this.search = function(){
-        console.log($scope.text);
         $http({
           method: 'GET',
           url: '/location?place='+$scope.text,
@@ -32,11 +31,24 @@
               } // end if
             }) // end personLooper forEach
           }) // end res.data forEach
-
-          // change State to search-results.html
-          console.log('trips is:', self.trips);
-
+          $state.go('search-results')
         })
+          // change State to search-results.html
+        // .then(function(){
+          // $scope.changeStateToSearchResults = function() {
+
+          // }
+          // return $http({
+          //   method: 'GET',
+          //   url: '/search-results',
+            // templateUrl: 'search-results.html'
+          // })
+        // })
+        .catch(function(err){
+          console.log(err);
+        })
+
+
       }
 
       // this.all = [
