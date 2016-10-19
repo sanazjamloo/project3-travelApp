@@ -1,1 +1,6 @@
 <p>search-results.html {{1+1}}</p>
+<!-- You are inside <body ng-controller="UserController as users"> -->
+
+<p ng-repeat="trip in users.trips">
+  trip is: {{trip}}
+</p>
