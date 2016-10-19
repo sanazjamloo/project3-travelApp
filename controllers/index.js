@@ -23,6 +23,8 @@ router.post('/signup', function(req, res){
     }); // end function
 });
 
+
+
 //LOG IN ROUTE
 router.post('/login', passport.authenticate('local'), function(req, res) {
   req.session.save(function(err) {
