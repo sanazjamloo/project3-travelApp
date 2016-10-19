@@ -16,26 +16,29 @@ router.post('/signup', function(req, res){
     req.body.password,
     function(err, user) {
       if (err) {
-        res.send(err)
+        res.status(500).json({ message: err});
       } else {
-        res.send('user created');
+        res.status(200).json({ message: 'user created'});
       }
     }); // end function
 });
 
 //LOG IN ROUTE
 router.post('/login', passport.authenticate('local'), function(req, res) {
+
   req.session.save(function(err) {
     if (err) {
-      return next(err);
+      res.status(500).json({ message: err});
     } else {
-      console.warn('WRITE CODE TO SEND THE USER TO THE RIGHT PLACE');
-      console.log('authenicated');
+      res.status(200).json({ message: 'successful login'});
     }
+
   });
 });
 
-
+router.post('/test', function(req, res) {
+  console.log('req.body is ',req.body);
+});
 
 
 

@@ -5,7 +5,14 @@
     function UserController($scope, $http, $state){
 
       var self = this;
+
+      this.creds = {
+        username: 'sam',
+        password: 's'
+      };
+      this.password = '';
       this.trips = [];
+      this.username = '';
 
       this.search = function(){
         $http({
@@ -51,7 +58,32 @@
         .catch(function(err){
           console.log(err);
         })
-      } // end this.search
+      }; // end this.search
+
+      this.test = function() {
+        console.log('at beginngin of test, scope.username is ', $scope.username);
+        console.log('at beginngin of test, self.username is ', self.username);
+        $http.post('/login', {username : 'sam', password: 's'})
+        .then(function() {
+          console.log('after POST on /test');
+          $state.go('home');
+        });
+      }; //end this.login
+
+      this.login = function() {
+        $http({
+          method: 'POST',
+          url: '/login',
+          data: {
+            username: $scope.username,
+            password: $scope.password
+          }
+        })
+        .then(function() {
+          console.log('after POST on /login');
+          $state.go('home');
+        });
+      }; //end this.login
 
       // html -> controller.login() send user and pw -> index.js POST route -> controller.login() test user and pw are good -> change state.  User must persist in all states, so look at Christine's slack message with URL with Colin's solution and integrate.
 
