@@ -59,7 +59,7 @@
         })
       } // end this.search
 
-
+      // html -> controller.login() send user and pw -> index.js POST route -> controller.login() test user and pw are good -> change state.  User must persist in all states, so look at Christine's slack message with URL with Colin's solution and integrate.
 
     } // end UserController function
 })()
