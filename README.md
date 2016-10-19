@@ -2,66 +2,72 @@
 Full CRUD action with Angular
 
 
-Installation
+#About the Project
 
-No installation required, click https://bookwormsclub.herokuapp.com/ to access the site and get started!
+Trelp is a web application that allows users to keep track of their trips, and share their comments on each location they have  visited with other users.  
 
-Project Requirements
+#User Story
 
-The guidelines listed below were provided by the project markdown:
-
-User of MongoDB and Express to create data CRUD
-Produce a RESTful API that expresses at least one model
-Authenticate users
-Restrict access to the Creation, Updating, and Deletion of resources using an authorization middleware function
-Be deployed online using Heroku.
-
-Necessary Deliverables
-
-A working app, hosted somewhere on the Internet
-A client application that consumes its own API, hosted somewhere on the internet
-A link to our hosted, working app in the URL section of our Github repo
-A Git repository hosted on Github, with frequent commits from every team member dating back to the very beginning of the project
+-As an anonymous user, I can:
+-Sign up and create a new user account.
+-I can login into my account and add, and update the list of the locations that I have been, so I can keep track of my travel history.  I am also able to leave comments on each travel, and share my experience with other visitors of the website. In addition, I can Search for a location so I can see who else has been there.
+-I can Sign Out at the end of the session so someone else doesn’t mess with my account.
 
 
-MVP
-Some of the MVP that was needed to complete the project:
+#Project Requirements
 
-- A working login page by local login options
-- A working create account feature that allows users to create a bookWorm account
-- The ability for users to create, edit, and delete a profile
-- The ability for users to create, edit and delete book logs
-- The ability for users to be able to view logs from previously added ones
+-Have at least 2 models (more if they make sense) – one representing someone using your application (a user), and one that represents the main functional idea for your app
+-Use Angular as a front-end framework
+Include sign up/log in functionality, with encrypted passwords & an authorization flow. (Using Passport)
+-Have complete RESTful routes for at least one of your resources with GET, POST, PUT, and DELETE
+-Write Mongo queries using the Mongoose module and interact with your document database. Promises will likely make your life easier as you start to build complex queries!
+-Include wireframes that you designed during the planning process
+-Include User Stories
+-Include ERDs
+-Have semantically clean HTML and CSS
+-Be deployed online and accessible to the public via Heroku.
 
 
-Technologies/Frameworks used
+#Necessary Deliverables
+
+-A working full-stack application, hosted on Heroku
+-A link to the hosted working app in the Github repo
+-A git repository hosted on Github, with a link to your hosted project, and frequent commits dating back to the very beginning of the project.
+-Wireframes of your app, hosted somewhere & linked in your readme
+-A link in readme.md to the publicly-accessible user stories you created.
+
+#Technologies/Frameworks used
 
 - HTML5
 - CSS
 - JavaScript
-- jQuery
+- AngularJS
 - Node.js
 - Express.js
 - MongoDB.js
 
+--Wireframes
+https://wireframe.cc/pro/pp/9424bb5ea56104
 
-User stories
-As a user, I want to keep track of all the book I collect.  I need to organize, and have a list of the books I purchase, or I checkout from the library or get as gift. So having a detailed list of my books will help me not to purchase a book that I already have in my library, or will let me know of what books have I checked out from which library before. This list will also allow me to track the books I have been given to friends as gift, or the books that I purchased as a gift to others.  
+--Link to Heroku
+https://trelp.herokuapp.com/
 
+#Approach Taken
 
+1- We started by drawing out our Wireframes using wireframe.cc.
+2- We made a planning board using Trello to keep track of the progress of the project.
+3- We created models, views, and controllers for the app. Full CRUD was achieved using Angular JavaScript.
+4- Lastly, after all the debugging, the app was deployed to Heroku.
 
-Wireframes
--- http://imgur.com/gallery/s8Thq
--- http://imgur.com/Mr0CjOv
+#Future Implementations
 
-Approach taken
+- Add Images as a visual reference to each location that the user has visited.
+- Add a rating for each trip and  show average ratings for a place when the user search for a place.
+- Add description, extra information about the location that a user has been to.
+- Follow another user.
+- Contact another user.
 
-I started by drawing out our Wireframes to a diagram and to plan my project.
-After that, I made a planning board and wrote user stories.
-I created models, views, and controllers for this app. Full CRUD was needed using RESTful routing but couldn't complete it.
-Lastly, after all the debugging, the app was deployed to Heroku.
-
-Future Implementations
-
-- Need to complete the authorization and authentication as well as the full CRUD routing.
-- The ability to have a more detailed list of the books.
+#Developers
+-Jason Fry
+-Sanaz Jamloo
+-Tom Murphree
