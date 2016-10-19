@@ -10,7 +10,7 @@
       url: '/',
       templateUrl: 'home.html'
     })
-    .state('user', {
+    .state('login', {
       url: '/user',
       templateUrl: 'user.html'
     })
@@ -22,6 +22,7 @@
       url: '/search-results',
       templateUrl: 'search-results.html'
     })
+
 
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode({

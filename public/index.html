@@ -15,12 +15,12 @@
 
       <div class="left">
         <div ng-show="true" class="login-register"> <!-- CHANGE NG-HIDE -->
-          <form id="login" action="index.html" method="post"> <!-- CHANGE ACTION AND METHOD -->
+          <form id="login" ng-submit="login" method="post"> <!-- CHANGE ACTION AND METHOD -->
             <input type="text" name="username" placeholder="email...">
             <input type="password" name="password" placeholder="password...">
             <input type="submit" name="login" value="login">
           </form>
-          <form id="register" action="index.html" method="post"> <!-- CHANGE ACTION AND METHOD -->
+          <form id="register" action="signup" method="post"> <!-- CHANGE ACTION AND METHOD -->
             <input type="text" name="username" placeholder="email...">
             <input type="password" name="password" placeholder="password...">
             <input type="submit" name="register" value="register">
