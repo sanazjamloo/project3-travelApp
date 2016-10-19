@@ -33,6 +33,10 @@
           }) // end res.data forEach
           $state.go('search-results')
         })
+        // XXX the below code contained within triple x did not work,
+        // but moving `$state.go...` to inside the above `.then` made it
+        // work.
+        
           // change State to search-results.html
         // .then(function(){
           // $scope.changeStateToSearchResults = function() {
@@ -44,6 +48,7 @@
             // templateUrl: 'search-results.html'
           // })
         // })
+        // XXX
         .catch(function(err){
           console.log(err);
         })
