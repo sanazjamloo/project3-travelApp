@@ -1,6 +1,27 @@
-<p>search-results.html {{1+1}}</p>
 <!-- You are inside <body ng-controller="UserController as users"> -->
 
-<p ng-repeat="trip in users.trips">
-  trip is: {{trip}}
-</p>
+<div class="module-card-wrap">
+  <div class="module-card" ng-repeat="trip in users.trips">
+    <div class="module-card-title">{{trip.place}}</div>
+    <div class="module-card-meta">
+      <div class="module-card-category">
+        <span class="fa fa-tag"></span>
+        <span>{{trip.dateStart | date: 'mediumDate'}}</span>
+      </div>
+      <div class="module-card-author">
+        <span class="fa fa-user"></span>
+        <span>{{trip.dateEnd | date: 'mediumDate'}}</span>
+      </div>
+    </div> <!-- /module-card-meta -->
+
+    <div class="module-card-bottom">
+      <img src="{{trip.imageUrl}}" alt="cheesecake" class="module-card-img" />
+
+      <div>
+        <p>{{trip.description}}</p>
+      </div>
+
+      <button class="module-card-button">See More</button>
+    </div>
+  </div>
+</div>

@@ -21,15 +21,21 @@
           var people = res.data;
           // filter out people.trips that don't equal $scope.text
           var username = '';
+          var temp = {};
           res.data.forEach(function(personLooper){
-            username = personLooper.username;
+            temp = {};
+            temp.username = personLooper.username;
             personLooper.trips.forEach(function(tripLooper) {
               //add trip to array if tripLooper.place matches $scope.text
               if ( RegExp($scope.text, 'i').test(tripLooper.place) ) {
-                self.trips.push({ username: username, trip: tripLooper });
+                for (property in tripLooper) {
+                  temp[property] = tripLooper[property];
+                }
+                self.trips.push(temp);
               } // end if
             }) // end personLooper forEach
           }) // end res.data forEach
+          console.log('self.trips is ', self.trips);
           $state.go('search-results')
         })
         // XXX the below code contained within triple x did not work,
@@ -53,7 +59,7 @@
         })
       } // end this.search
 
-      
+
 
     } // end UserController function
 })()
