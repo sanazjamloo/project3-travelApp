@@ -33,6 +33,14 @@ var fakeUser2 = new User({
   username: 'Suzy',
   trips: [
     {
+      dateStart: new Date('01/02/2015'),
+      dateEnd: new Date('01/11/2015'),
+      description: 'Great place and I LOVE the cold!!',
+      imageUrl: "imageUrl for Suzy's trip to Denver",
+      place: 'Denver, Colorado',
+      tripId: Date.now().toString()
+    },
+    {
       dateStart: new Date('04/01/2015'),
       dateEnd: new Date('04/22/2015'),
       description: 'Southern hospitality is alive and well -- these people really know how to treat a lady!',

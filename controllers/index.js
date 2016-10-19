@@ -48,6 +48,7 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 
 router.get('/location' , function(req, res){
   //first we need to figure out what location the user wants to know about.
+  console.log(req.query);
 
   var place = req.query.place;
   var result = [];
