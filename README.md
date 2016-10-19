@@ -14,20 +14,6 @@ Trelp is a web application that allows users to keep track of their trips, and s
 -I can Sign Out at the end of the session so someone else doesn’t mess with my account.
 
 
-#Project Requirements
-
--Have at least 2 models (more if they make sense) – one representing someone using your application (a user), and one that represents the main functional idea for your app
--Use Angular as a front-end framework
-Include sign up/log in functionality, with encrypted passwords & an authorization flow. (Using Passport)
--Have complete RESTful routes for at least one of your resources with GET, POST, PUT, and DELETE
--Write Mongo queries using the Mongoose module and interact with your document database. Promises will likely make your life easier as you start to build complex queries!
--Include wireframes that you designed during the planning process
--Include User Stories
--Include ERDs
--Have semantically clean HTML and CSS
--Be deployed online and accessible to the public via Heroku.
-
-
 #Necessary Deliverables
 
 -A working full-stack application, hosted on Heroku
@@ -44,7 +30,7 @@ Include sign up/log in functionality, with encrypted passwords & an authorizatio
 - AngularJS
 - Node.js
 - Express.js
-- MongoDB.js
+- MongoDB
 
 --Wireframes
 https://wireframe.cc/pro/pp/9424bb5ea56104
