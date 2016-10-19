@@ -15,8 +15,8 @@
 
       <div class="left">
         <div ng-show="true" class="login-register"> <!-- CHANGE NG-HIDE -->
-          <form id="login" ng-submit="login" method="post"> <!-- CHANGE ACTION AND METHOD -->
-            <input type="text" name="username" placeholder="email...">
+          <form id="login" ng-submit="users.login()" method="post"> <!-- CHANGE ACTION AND METHOD -->
+            <input type="text" ng-submit="username" placeholder="email..."> <!-- should this be ng-submit or something else? -->
             <input type="password" name="password" placeholder="password...">
             <input type="submit" name="login" value="login">
           </form>
