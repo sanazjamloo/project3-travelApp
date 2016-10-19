@@ -63,7 +63,7 @@
       this.test = function() {
         console.log('at beginngin of test, scope.username is ', $scope.username);
         console.log('at beginngin of test, self.username is ', self.username);
-        $http.post('/login', self.creds)
+        $http.post('/login', {username : 'sam', password: 's'})
         .then(function() {
           console.log('after POST on /test');
           $state.go('home');

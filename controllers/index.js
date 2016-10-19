@@ -25,12 +25,14 @@ router.post('/signup', function(req, res){
 
 //LOG IN ROUTE
 router.post('/login', passport.authenticate('local'), function(req, res) {
+
   req.session.save(function(err) {
     if (err) {
       res.status(500).json({ message: err});
     } else {
       res.status(200).json({ message: 'successful login'});
     }
+
   });
 });
 
