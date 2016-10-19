@@ -7,16 +7,37 @@ var LocalStrategy = require('passport-local').Strategy;
 
 
 // //SIGN UP ROUTE
-// router.post('/signup', function(req, res) {
-//   User.register(new User(
-//     { username : req.body.username}),
-//     req.body.password, function(err, user) {
-//       if (err) {
-//         return res.json({ user : user });
-//       }
-//
-//       });
-//   });
+router.post('/signup', function(req, res){
+  User.register(new User({
+    username: req.body.username,
+    trips: [],
+    userId: Date.now().toString()
+    }),
+    req.body.password,
+    function(err, user) {
+      if (err) {
+        res.send(err)
+      } else {
+        res.send('user created');
+      }
+    }); // end function
+});
+
+//LOG IN ROUTE
+router.post('/login', passport.authenticate('local'), function(req, res) {
+  req.session.save(function(err) {
+    if (err) {
+      return next(err);
+    } else {
+      console.warn('WRITE CODE TO SEND THE USER TO THE RIGHT PLACE');
+      console.log('authenicated');
+    }
+  });
+});
+
+
+
+
 
 
 

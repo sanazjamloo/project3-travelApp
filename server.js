@@ -42,11 +42,6 @@ app.use('/', require('./controllers/index.js'));
 
 
 
-
-
-
-
-
 app.listen(port, function() {
   console.info('Server is responding on port ' + port + ' ',
   moment(new Date(), 'America/Chicago').format());
