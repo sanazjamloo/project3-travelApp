@@ -8,6 +8,7 @@
 
       this.currentUser = null;
       this.password = '';
+      this.editedTrip = {};
       this.signupusername = null;
       this.signuppassword = null;
       this.signuperror = null;
@@ -91,6 +92,10 @@
           console.error(err);
         });
       }; //end this.logout
+
+      this.setTripToEdit = function(trip) {
+        self.editedTrip = trip;
+      }//end setTripToEdit
 
       this.search = function(){
         self.searchedForTrips = [];
@@ -212,7 +217,8 @@
       // EDIT A TRIP IN A USER'S ARRAY
       this.editTrip = function(trip) {
         console.log('trip is ', trip);
-        $http.patch(`/user/${trip.tripId}`, {tripData: trip})
+
+        $http.patch(`/private/trip/${trip.tripId}`, {tripData: trip})
         .then(function(response) {
           console.log(response.data);
           $state.go('user');

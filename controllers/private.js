@@ -50,15 +50,15 @@ router.post('/:username', authorize, function(req,res) {
 
 //edit trip
 router.patch('/trip/:tripId', authorize, function(req,res) {
-  //User.findById(req.user._id).exec()
-  User.findById('5806d92db5fd1e059a394c6e').exec()
+  User.findById(req.user._id).exec()
+  // User.findById('5806d92db5fd1e059a394c6e').exec()
   .then(function(user){
     // if (!user) { return; }
 
     user.trips.forEach(function(item){
       if (item.tripId === req.params.tripId) {
         for (property in req.body) {
-          item[property] = req.body[property];
+          item[property] = req.body.tripData[property];
         }
       }
     });
@@ -66,7 +66,9 @@ router.patch('/trip/:tripId', authorize, function(req,res) {
     return user.save();
   })
   .then(function(data) {
-    res.status(200).json({message: 'deleted'});
+    //instead of sending {message: 'updated'}, we'll look for the user's
+    //trips and return those
+    res.status(200).json({message: 'updated'});
   })
   .catch(function(err) {
     console.error(err);
