@@ -6,10 +6,7 @@
 
       var self = this;
 
-      this.creds = {
-        username: 'sam',
-        password: 's'
-      };
+      this.currentUser = null;
       this.password = '';
       this.trips = [];
       this.username = '';
@@ -39,53 +36,70 @@
           }) // end res.data forEach
           $state.go('search-results')
         })
-        // XXX the below code contained within triple x did not work,
-        // but moving `$state.go...` to inside the above `.then` made it
-        // work.
+        /*
+        XXX
+        the below code contained within triple x did not work,
+        but moving `$state.go...` to inside the above `.then` made it
+        work.
 
-          // change State to search-results.html
-        // .then(function(){
-          // $scope.changeStateToSearchResults = function() {
+          change State to search-results.html
+        .then(function(){
+          $scope.changeStateToSearchResults = function() {
 
-          // }
-          // return $http({
-          //   method: 'GET',
-          //   url: '/search-results',
-            // templateUrl: 'search-results.html'
-          // })
-        // })
-        // XXX
+          }
+          return $http({
+            method: 'GET',
+            url: '/search-results',
+            templateUrl: 'search-results.html'
+          })
+        })
+        XXX */
         .catch(function(err){
           console.log(err);
         })
       }; // end this.search
-
-      this.test = function() {
-        console.log('at beginngin of test, scope.username is ', $scope.username);
-        console.log('at beginngin of test, self.username is ', self.username);
-        $http.post('/login', {username : 'sam', password: 's'})
-        .then(function() {
-          console.log('after POST on /test');
-          $state.go('home');
-        });
-      }; //end this.login
 
       this.login = function() {
         $http({
           method: 'POST',
           url: '/login',
           data: {
-            username: $scope.username,
-            password: $scope.password
+            username: self.username,
+            password: self.password
           }
         })
-        .then(function() {
-          console.log('after POST on /login');
-          $state.go('home');
+        .then(function(response) {
+          console.log('in login, response.data is ', response.data);
+          self.currentUser = response.data.username;
+          $state.go('user');
+        })
+        .catch(function(err) {
+          console.error(err);
         });
       }; //end this.login
 
       // html -> controller.login() send user and pw -> index.js POST route -> controller.login() test user and pw are good -> change state.  User must persist in all states, so look at Christine's slack message with URL with Colin's solution and integrate.
+      //
+      // $http.get('/helpers/get-user')
+      // .then(function(response) {
+      //   self.currentUser = response.data.user;
+      //   console.log('from get-user, currentUser is ', self.currentUser);
+      // })
+      // .catch(function(err) {
+      //   console.error(err);
+      // });
+
+      /*
+        For signup route:
+              {
+          "message": {
+            "name": "UserExistsError",
+            "message": "A user with the given username is already registered"
+          }
+        }
+      */
+
+
 
     } // end UserController function
 })()

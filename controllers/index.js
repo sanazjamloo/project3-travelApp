@@ -25,23 +25,19 @@ router.post('/signup', function(req, res){
 
 //LOG IN ROUTE
 router.post('/login', passport.authenticate('local'), function(req, res) {
+  console.log('before saving session, req.body is ', req.body);
+
+  
 
   req.session.save(function(err) {
     if (err) {
       res.status(500).json({ message: err});
     } else {
-      res.status(200).json({ message: 'successful login'});
+      res.status(200).json({ message: 'successful login', username: req.body.username});
     }
 
   });
 });
-
-router.post('/test', function(req, res) {
-  console.log('req.body is ',req.body);
-});
-
-
-
 
 
 //NOTE we are sending data to Angular.

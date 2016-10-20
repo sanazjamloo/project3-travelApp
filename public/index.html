@@ -14,17 +14,12 @@
     <header>
 
       <div class="left">
-        {{ users.username }} {{ users.password }}
+        {{ users.username }} {{ users.password }} {{ users.currentUser }}
         <div ng-show="true" class="login-register"> <!-- CHANGE NG-HIDE -->
-          <form id="test" ng-submit="users.test()" method="post"> <!-- CHANGE ACTION AND METHOD -->
-            <input type="text" ng-model="users.username" placeholder="TEST email..."> <!-- should this be ng-submit or something else? -->
-            <input type="password" ng-model="users.password" placeholder="TEST password...">
-            <input type="submit" name="test" value="test">
-          </form>
-          <form id="login" ng-submit="users.login()" method="post"> <!-- CHANGE ACTION AND METHOD -->
-            <input type="text" ng-submit="username" placeholder="email..."> <!-- should this be ng-submit or something else? -->
-            <input type="password" name="password" placeholder="password...">
-            <input type="submit" name="login" value="login">
+          <form id="test" ng-submit="users.login()" method="post"> <!-- CHANGE ACTION AND METHOD -->
+            <input type="text" ng-model="users.username" placeholder="email..."> <!-- should this be ng-submit or something else? -->
+            <input type="password" ng-model="users.password" placeholder="password...">
+            <input type="submit" name="test" value="Login">
           </form>
           <form id="register" action="signup" method="post"> <!-- CHANGE ACTION AND METHOD -->
             <input type="text" name="username" placeholder="email...">
