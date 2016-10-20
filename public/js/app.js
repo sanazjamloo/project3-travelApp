@@ -6,22 +6,27 @@
 
   function MainRouter($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
+    .state('demo', {
+      url: '/demo',
+      templateUrl: 'demo.html'
+    })
     .state('home', {
       url: '/',
       templateUrl: 'home.html'
     })
-    .state('user', {
+    .state('login', {
       url: '/user',
       templateUrl: 'user.html'
-    })
-    .state('demo', {
-      url: '/demo',
-      templateUrl: 'demo.html'
     })
     .state('search-results', {
       url: '/search-results',
       templateUrl: 'search-results.html'
     })
+    .state('user', {
+      url: '/user',
+      templateUrl: 'user.html'
+    });
+
 
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode({

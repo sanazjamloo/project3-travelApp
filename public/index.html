@@ -5,6 +5,8 @@
     <title>Trelp</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/flexbox-card.css">
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:400i" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
     <script src="js/app.js"></script>
@@ -14,33 +16,39 @@
     <header>
 
       <div class="left">
-        <div ng-show="true" class="login-register"> <!-- CHANGE NG-HIDE -->
-          <form id="login" action="index.html" method="post"> <!-- CHANGE ACTION AND METHOD -->
-            <input type="text" name="username" placeholder="email...">
-            <input type="password" name="password" placeholder="password...">
-            <input type="submit" name="login" value="login">
+        {{ users.username }} {{ users.password }} {{ users.currentUser }}
+        <div ng-show="true" class="login-register">
+          <form id="login" ng-submit="users.login()" method="post">
+            <p><strong>Log in</strong></p>
+            <input type="text" ng-model="users.username" placeholder="email...">
+            <input type="password" ng-model="users.password" placeholder="password...">
+            <input type="submit" name="test" value="Login">
           </form>
-          <form id="register" action="index.html" method="post"> <!-- CHANGE ACTION AND METHOD -->
-            <input type="text" name="username" placeholder="email...">
-            <input type="password" name="password" placeholder="password...">
-            <input type="submit" name="register" value="register">
+          <p style="color:red">
+            {{ users.signuperror }}
+          </p>
+          <form id="signup" ng-submit="users.signup()" method="post" ng-if="!users.currentUser">
+            <p><strong>Sign up</strong></p>
+            <input type="text" ng-model="users.signupusername" placeholder="email...">
+            <input type="password" ng-model="users.signuppassword" placeholder="password...">
+            <input type="submit" name="test" value="Sign up">
           </form>
         </div>
 
-        <a ui-sref-active="active" ui-sref="user" ng-show="true" class="welcome"> <!-- CHANGE NG-HIDE -->
-          <h3>Welcome, {{users.all[1].userName}}!</h3>
+        <a ui-sref-active="active" ui-sref="user" ng-show="true" class="welcome" ng-if="users.currentUser"> <!-- CHANGE NG-HIDE -->
+          <h3>Welcome, {{ users.currentUser }}!</h3>
             <img src="https://pbs.twimg.com/media/Cjld9C0XIAEmdcd.jpg" alt="Woman on vacation, looking out over the city into the bay"/>
         </a>
       </div>
 
       <a ui-sref-active="active" ui-sref="home" class="middle">
         <h1 class="title">Trelp</h1>
-        <h2 class="title">You love traveling, we love helping you.</h2>
+        <h2 class="title">You love traveling, we love helping you</h2>
       </a>
 
       <div class="right">
-        <form class="" action="index.html" method="post">
-          <input ng-hide="true" type="submit" name="logout" value="logout"> <!-- CHANGE NG-HIDE -->
+        <form class="" ng-submit="users.logout()" method="post">
+          <input ng-if="users.currentUser" type="submit" name="logout" value="logout"> <!-- CHANGE NG-IF -->
         </form>
         <form ng-submit="users.search()">
           <input type="text" name="text" ng-model="text" placeholder="destination...">
