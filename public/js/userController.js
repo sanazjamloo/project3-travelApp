@@ -108,14 +108,33 @@
           // filter out people.trips that don't equal $scope.text
 
           var tempUser = {};
-          console.log('self.searchedForTrips is:', self.searchedForTrips);
+          console.log('self.searchedForTrips is:', self.searchedForTrips); // XXX this is printing duplicates.  Why?
           console.log('people who have been to searchString is:', people);
-          res.data.forEach(function(personLooper){
+          // loop through people and then loop through that person's trip to find all trips where 'place' contains searchString, and display those in the browser, including the username associated with each trip
+
+          var isDuplicateTrip = function(id) {
+            var result = self.searchedForTrips.find(function(tripLooper){
+              return tripLooper._id === id;
+            });
+
+            if (result === undefined) {
+              return false;
+            } else {
+              return true;
+            }
+          };
+
+          people.forEach(function(personLooper){
             tempUser = {};
             tempUser.username = personLooper.username;
             personLooper.trips.forEach(function(tripLooper) {
+              console.log('tripLooper is:', tripLooper);
+
+
+
               //add trip to array if tripLooper.place matches $scope.text
-              if ( RegExp($scope.text, 'i').test(tripLooper.place) ) {
+              if ( RegExp($scope.text, 'i').test(tripLooper.place) &&
+                  !isDuplicateTrip(tripLooper._id)) {
                 for (property in tripLooper) {
                   tempUser[property] = tripLooper[property];
                 }
