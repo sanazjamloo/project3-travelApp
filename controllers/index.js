@@ -29,7 +29,8 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
     if (err) {
       res.status(406).json({ message: err});
     } else {
-      res.status(200).json({ message: 'successful login', username: req.body.username});
+      res.status(200).json({ message: 'successful login', username: req.body.username, userId: req.user.userId});
+
     }
 
   });
