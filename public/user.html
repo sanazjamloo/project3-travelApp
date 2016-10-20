@@ -1,13 +1,7 @@
 <!-- You are inside <body ng-controller="UserController as users">  -->
 <div class="left-sidebar">
   <form class="new-destination" ng-submit="users.addTrip()" method="post">
-    <h3>Enter a new destination</h3>
-    <!-- <label for="city">City: </label>
-    <input type="text" name="city" value=""><br>
-    <label for="state">State: </label>
-    <input type="text" name="state" value=""><br>
-    <label for="country">Country: </label>
-    <input type="text" name="country" value=""><br> -->
+    <h3>Enter a new trip</h3>
     <label for="place">Destination: </label>
     <input type="text" ng-model="users.newTrip.place" id="place" value=""><br>
     <label for="dateStart">Start: </label>
@@ -17,11 +11,10 @@
     <label for="description">Description: </label>
     <textarea ng-model="users.newTrip.description" rows="6" cols="25" id="description"></textarea><br>
     <label for="imageUrl">Image URL: </label>
-    <!-- called 'foo' because Adobe Flash causes issues with things called imageUrl -->
     <input type="text" ng-model="users.newTrip.imageUrl" id="imageUrl" value=""><br>
-    <input type="submit" name="submit" value="Add Destination">
+    <input type="submit" name="submit" value="Add Trip">
   </form>
-  <form class="new-destination" ng-submit="users.editTrip(updatedTrip)" method="post" ng-show="users.showEditForm">
+  <form class="new-destination" ng-submit="users.editTrip(users.editedTrip)" method="post" ng-show="users.showEditForm">
     <h3>Edit trip</h3>
     <label for="place">Destination: </label>
     <input type="text" ng-model="users.editedTrip.place" id="place" value=""><br>
@@ -32,9 +25,8 @@
     <label for="description">Description: </label>
     <textarea ng-model="users.editedTrip.description" rows="6" cols="25" id="description"></textarea><br>
     <label for="imageUrl">Image URL: </label>
-    <!-- called 'foo' because Adobe Flash causes issues with things called imageUrl -->
     <input type="text" ng-model="users.editedTrip.imageUrl" id="imageUrl" value=""><br>
-    <input type="submit" name="submit" value="Add Destination">
+    <input type="submit" name="submit" value="Edit Trip">
   </form>
 </div>
 

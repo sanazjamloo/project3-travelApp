@@ -220,11 +220,19 @@
 
       // EDIT A TRIP IN A USER'S ARRAY
       this.editTrip = function(trip) {
+
+        self.showEditForm = false;
+
         console.log('trip is ', trip);
 
         $http.patch(`/private/trip/${trip.tripId}`, {tripData: trip})
         .then(function(response) {
           console.log(response.data);
+
+          //update self.myTrips
+
+
+
           $state.go('user');
         });
         // USE BELOW CODE AS A MODEL
