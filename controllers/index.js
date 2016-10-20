@@ -80,6 +80,49 @@ router.get('/user/:userId/trips', function(req, res){
     });
 });
 
+// DELETE A TRIP FROM A USER'S DATABASE
+router.delete('/user/:tripId', function(req, res){
+  User.findOneAndUpdate(
+    {'_id': req.user._id},
+    {$pull: {'trips': {'_id': req.params.tripId}}
+  })
+  .catch(function(err){
+    console.log(err);
+  })
+  .then(function(user){
+    console.log('user is:', user);
+    return user; // do res.json instead of return, I think
+  })
+  .catch(function(err){
+    console.log(err);
+  })
+})
+
+// EDIT A TRIP IN A USER'S DATABASE
+router.put('/user/:tripId', function(req, res) {
+  User.update({_id: req.user._id}
+
+    // USE BELOW CODE AS A MODEL from
+    //w08d03/instructor_notes/ang_todos_solution/controllers/todos.js
+    /*
+    router.put('/:todoId', function(req, res) {
+      var editedTodo;
+
+      Todo.update({_id: req.params.todoId}, req.body)
+        .then(function() {
+          return Todo.find({}).exec();
+        })
+        .then(function(todos) {
+          console.log('ALL TODOS>>>>', todos)
+
+          res.json({message: "succesfully updated", todos: todos})
+        })
+        .catch(function(err) {
+          res.json(400, err)
+        });
+    })
+    */
+  )
 
 
 
@@ -89,5 +132,9 @@ router.get('/user/:userId/trips', function(req, res){
 
 
 
+
+
+
+})
 
 module.exports = router;

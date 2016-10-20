@@ -51,7 +51,8 @@
         <p>{{trip.description}}</p>
       </div>
 
-      <button class="module-card-button">See More</button>
+      <button ng-click="users.deleteTrip(trip._id)" class="module-card-button">Delete Me!</button>
+      <button ng-click="users.editTrip(trip._id)" class="module-card-button">Edit Me!</button>
     </div>
   </div>
 </div>
