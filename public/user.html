@@ -1,20 +1,24 @@
 <!-- You are inside <body ng-controller="UserController as users">  -->
 <div class="left-sidebar">
-  <form class="new-destination" action="index.html" method="post">
-    <label for="city">City: </label>
+  <form class="new-destination" ng-submit="users.addTrip()" method="post">
+    <h3>Enter a new destination</h3>
+    <!-- <label for="city">City: </label>
     <input type="text" name="city" value=""><br>
     <label for="state">State: </label>
     <input type="text" name="state" value=""><br>
     <label for="country">Country: </label>
-    <input type="text" name="country" value=""><br>
+    <input type="text" name="country" value=""><br> -->
+    <label for="place">Destination: </label>
+    <input type="text" ng-model="users.newTrip.place" id="place" value=""><br>
     <label for="dateStart">Start: </label>
-    <input type="date" name="dateStart" value=""><br>
+    <input type="date" ng-model="users.newTrip.dateStart" id="dateStart" value=""><br>
     <label for="dateEnd">End: </label>
-    <input type="date" name="dateEnd" value=""><br>
+    <input type="date" ng-model="users.newTrip.dateEnd" id="dateEnd" value=""><br>
     <label for="description">Description: </label>
-    <textarea name="description" rows="6" cols="25"></textarea><br>
+    <textarea ng-model="users.newTrip.description" rows="6" cols="25" id="description"></textarea><br>
     <label for="imageUrl">Image URL: </label>
-    <input type="url" name="imageUrl" value=""><br>
+    <!-- called 'foo' because Adobe Flash causes issues with things called imageUrl -->
+    <input type="text" ng-model="users.newTrip.imageUrl" id="imageUrl" value=""><br>
     <input type="submit" name="submit" value="Add Destination">
   </form>
 </div>
@@ -27,7 +31,7 @@
 </div>
 
 <div class="module-card-wrap">
-  <div class="module-card" ng-repeat="trip in users.all[0].trips">
+  <div class="module-card" ng-repeat="trip in users.trips.trips">
     <div class="module-card-title">{{trip.place}}</div>
     <div class="module-card-meta">
       <div class="module-card-category">

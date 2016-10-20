@@ -16,9 +16,9 @@ router.post('/signup', function(req, res){
     req.body.password,
     function(err, user) {
       if (err) {
-        res.send(err)
+        res.status(406).json({ message: err });
       } else {
-        res.send('user created');
+        res.status(200).json({ message: 'user created'});
       }
     }); // end function
 });
@@ -27,18 +27,14 @@ router.post('/signup', function(req, res){
 router.post('/login', passport.authenticate('local'), function(req, res) {
   req.session.save(function(err) {
     if (err) {
-      return next(err);
+      res.status(406).json({ message: err});
     } else {
-      console.warn('WRITE CODE TO SEND THE USER TO THE RIGHT PLACE');
-      console.log('authenicated');
+      res.status(200).json({ message: 'successful login', username: req.body.username, userId: req.user.userId});
+
     }
+
   });
 });
-
-
-
-
-
 
 
 //NOTE we are sending data to Angular.
@@ -46,8 +42,6 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 
 router.get('/location' , function(req, res){
   //first we need to figure out what location the user wants to know about.
-  console.log(req.query);
-
   var place = req.query.place;
   var result = [];
 
@@ -62,22 +56,19 @@ router.get('/location' , function(req, res){
       //data is a list of users
       //loop through the usrs and return the trips where trip.place === place
       data.forEach(function(userLooper){
-        console.log('username is ', userLooper.username);
         userLooper.trips.forEach(function(tripLooper){
           if (tripLooper.place.search(new RegExp(place, 'i')) !== -1){
             result.push(userLooper);
           }
         });
       });
-
-      console.log('after looping through users, result is ', result);
     })
     .catch(function(err){
       console.log(err);
     })
     //send the data to Angular in a res.json command
     .then(function(){
-      res.json(result);
+      res.status(200).json(result);
     });
 });
 
