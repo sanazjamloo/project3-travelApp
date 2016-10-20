@@ -55,13 +55,21 @@ router.get('/location' , function(req, res){
     .then(function(data){
       //data is a list of users
       //loop through the usrs and return the trips where trip.place === place
-      data.forEach(function(userLooper){
-        userLooper.trips.forEach(function(tripLooper){
-          if (tripLooper.place.search(new RegExp(place, 'i')) !== -1){
+      var userLooper = null;
+      loop1:
+      // data.forEach(function(userLooper){
+      for (var i = 0; i < data.length; i++) {
+        userLooper = data[i];
+        // userLooper.trips.forEach(function(tripLooper){
+        for (var i = 0; i < userLooper.trips.length; i++) {
+          if (userLooper.trips[i].place.search(new RegExp(place, 'i')) !== -1){
             result.push(userLooper);
-          }
-        });
-      });
+            continue loop1; // once a user is found, no longer loop through their info, otherwise we get an error when trying to display the info to the user later.
+          } // end if
+        } // end for loop
+        // }); // end forEach
+      } // end for loop
+      // });
     })
     .catch(function(err){
       console.log(err);
