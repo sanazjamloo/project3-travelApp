@@ -7,6 +7,8 @@
       var self = this;
 
       this.currentUser = null;
+      this.editedTrip = {};
+      this.showEditForm = false;
       this.password = '';
       this.signupusername = null;
       this.signuppassword = null;
@@ -91,6 +93,13 @@
           console.error(err);
         });
       }; //end this.logout
+
+      this.setTripToEdit = function(trip) {
+        self.showEditForm = true;
+        trip.dateEnd = new Date(trip.dateEnd);
+        trip.dateStart = new Date(trip.dateStart);
+        self.editedTrip = trip;
+      }//end setTripToEdit
 
       this.search = function(){
         self.searchedForTrips = [];
@@ -210,8 +219,22 @@
       }
 
       // EDIT A TRIP IN A USER'S ARRAY
-      this.editTrip = function(id) {
-        $http.delete(`/user/${id}`)
+      this.editTrip = function(trip) {
+
+        self.showEditForm = false;
+
+        console.log('trip is ', trip);
+
+        $http.patch(`/private/trip/${trip.tripId}`, {tripData: trip})
+        .then(function(response) {
+          console.log(response.data);
+
+          //update self.myTrips
+
+
+
+          $state.go('user');
+        });
         // USE BELOW CODE AS A MODEL
         // NOTE: probably need to create `isEditing` and `isCreating` as booleans
         // outside this.editTrip, and toggle them inside this.editTrip so that
@@ -229,7 +252,7 @@
           this.isEditing = false;
         }
         */
-      }
+      }; //end this.editTrip
 
     } // end UserController function
 })()

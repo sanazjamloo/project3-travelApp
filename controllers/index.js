@@ -40,6 +40,7 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 //NOTE we are sending data to Angular.
 //We are not sending views to a user.
 
+//get all trips for a location
 router.get('/location' , function(req, res){
   //first we need to figure out what location the user wants to know about.
   var place = req.query.place;
@@ -68,6 +69,7 @@ router.get('/location' , function(req, res){
     })
 });
 
+//return all trips for a user
 router.get('/user/:userId/trips', function(req, res){
 
   // User.findOne({userId: req.user.userId}).exec()
@@ -80,61 +82,29 @@ router.get('/user/:userId/trips', function(req, res){
     });
 });
 
-// DELETE A TRIP FROM A USER'S DATABASE
-router.delete('/user/:tripId', function(req, res){
-  User.findOneAndUpdate(
-    {'_id': req.user._id},
-    {$pull: {'trips': {'_id': req.params.tripId}}
-  })
-  .catch(function(err){
-    console.log(err);
-  })
-  .then(function(user){
-    console.log('user is:', user);
-    return user; // do res.json instead of return, I think
-  })
-  .catch(function(err){
-    console.log(err);
-  })
-})
+// // DELETE A TRIP FROM A USER'S DATABASE
 
-// EDIT A TRIP IN A USER'S DATABASE
-router.put('/user/:tripId', function(req, res) {
-  User.update({_id: req.user._id}
+//NOTE the API spec says that we use /private/trip/:tripId . . .
+// this is /user/:tripId . . . . I'm commenting this out because it works
+// and we may need the code but I think we should follow spec and use the
+// code that I spent time building Tom Murphree
 
-    // USE BELOW CODE AS A MODEL from
-    //w08d03/instructor_notes/ang_todos_solution/controllers/todos.js
-    /*
-    router.put('/:todoId', function(req, res) {
-      var editedTodo;
+// router.delete('/user/:tripId', function(req, res){
+//   User.findOneAndUpdate(
+//     {'_id': req.user._id},
+//     {$pull: {'trips': {'_id': req.params.tripId}}
+//   })
+//   .catch(function(err){
+//     console.log(err);
+//   })
+//   .then(function(user){
+//     console.log('user is:', user);
+//     return user; // do res.json instead of return, I think
+//   })
+//   .catch(function(err){
+//     console.log(err);
+//   })
+// })
 
-      Todo.update({_id: req.params.todoId}, req.body)
-        .then(function() {
-          return Todo.find({}).exec();
-        })
-        .then(function(todos) {
-          console.log('ALL TODOS>>>>', todos)
-
-          res.json({message: "succesfully updated", todos: todos})
-        })
-        .catch(function(err) {
-          res.json(400, err)
-        });
-    })
-    */
-  )
-
-
-
-
-
-
-
-
-
-
-
-
-})
 
 module.exports = router;
