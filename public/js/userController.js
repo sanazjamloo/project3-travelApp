@@ -7,6 +7,8 @@
       var self = this;
 
       this.currentUser = null;
+      this.editedTrip = {};
+      this.showEditForm = false;
       this.password = '';
       this.signupusername = null;
       this.signuppassword = null;
@@ -91,6 +93,13 @@
           console.error(err);
         });
       }; //end this.logout
+
+      this.setTripToEdit = function(trip) {
+        self.showEditForm = true;
+        trip.dateEnd = new Date(trip.dateEnd);
+        trip.dateStart = new Date(trip.dateStart);
+        self.editedTrip = trip;
+      }//end setTripToEdit
 
       this.search = function(){
         self.searchedForTrips = [];
@@ -201,25 +210,28 @@
 
       // DELETE A TRIP FROM A USER'S ARRAY
       this.deleteTrip = function(id) {
-        $http.delete(`/user/${id}`)
-        // take the response from index.js and do something with it
-        // .then(function(res) {
-        //   console.log('res is:', res);
-        //   self.myTrips = res.data.trips; // not sure if this is right
-        // })
-      }
+        $http.delete(`/private/trip/${id}`)
+        .then(function(response) {
+          //get the most recent trip data
+          self.myTrips = response.data;
+        });
+      }; //end this.deleteTrip
 
       // EDIT A TRIP IN A USER'S ARRAY
-      this.editTrip = function(id) {
-        $http.delete(`/user/${id}`)
-        // USE BELOW CODE AS A MODEL
-        // NOTE: probably need to create `isEditing` and `isCreating` as booleans
-        // outside this.editTrip, and toggle them inside this.editTrip so that
-        // the ngShow works properly in the browser.  See
-        // w08d03/instructor_notes/ang_todos_solution/, specifically
-        // public/js/app.js and public/index.html.
+      this.editTrip = function(trip) {
 
-      }
+        self.showEditForm = false;
+
+        $http.patch(`/private/trip/${trip.tripId}`, {tripData: trip})
+        .then(function(response) {
+          console.log(response.data);
+
+          //don't need to update self.myTrips because editing newTrip updates
+          //it in real time
+
+          $state.go('user');
+        });
+      }; //end this.editTrip
 
     } // end UserController function
 })()
