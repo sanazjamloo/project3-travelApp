@@ -101,7 +101,7 @@ router.delete('/trip/:tripId', authorize, function(req,res) {
   })
   .then(function(data) {
     console.log('removed the trip');
-    res.status(200).json({message: 'removed'});
+    res.status(200).json(data.trips);
   })
   .catch(function(err) {
     console.error(err);

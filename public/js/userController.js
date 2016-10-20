@@ -212,11 +212,8 @@
       this.deleteTrip = function(id) {
         $http.delete(`/private/trip/${id}`)
         .then(function(response) {
-          console.log('response is:', response);
-
           //get the most recent trip data
-
-          // self.myTrips = res.data.trips; // not sure if this is right
+          self.myTrips = response.data;
         });
       }; //end this.deleteTrip
 
