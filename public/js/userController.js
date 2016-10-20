@@ -11,7 +11,8 @@
       this.signupusername = null;
       this.signuppassword = null;
       this.signuperror = null;
-      this.trips = [];
+      this.myTrips = [];
+      this.searchedForTrips = [];
       this.username = '';
 
       this.newTrip = {
@@ -34,12 +35,18 @@
           self.newTrip = {};
 
           //ask the server for this user's updated trip array
-
-
+          return $http({
+            method: 'GET',
+            url: '/user/'+response.data.userId+'/trips'
+          })
         })
         .catch(function(err) {
           console.error(err);
-        });
+        })
+        .then(function(response){
+          console.log('response is:', response);
+          self.myTrips = response.data;
+        })
       }; //end this.addTrip
 
       this.login = function() {
@@ -59,7 +66,7 @@
             url: '/user/'+response.data.userId+'/trips'
           })
           .then(function(res){
-            self.trips = res.data;
+            self.myTrips = res.data;
           })
           .then(function(){
             $state.go('user');
@@ -86,6 +93,7 @@
       }; //end this.logout
 
       this.search = function(){
+        self.searchedForTrips = [];
         $http({
           method: 'GET',
           url: '/location?place='+$scope.text,
@@ -100,20 +108,41 @@
           // filter out people.trips that don't equal $scope.text
 
           var tempUser = {};
-          res.data.forEach(function(personLooper){
+          console.log('self.searchedForTrips is:', self.searchedForTrips); // XXX this is printing duplicates.  Why?
+          console.log('people who have been to searchString is:', people);
+          // loop through people and then loop through that person's trip to find all trips where 'place' contains searchString, and display those in the browser, including the username associated with each trip
+
+          var isDuplicateTrip = function(id) {
+            var result = self.searchedForTrips.find(function(tripLooper){
+              return tripLooper._id === id;
+            });
+
+            if (result === undefined) {
+              return false;
+            } else {
+              return true;
+            }
+          };
+
+          people.forEach(function(personLooper){
             tempUser = {};
             tempUser.username = personLooper.username;
             personLooper.trips.forEach(function(tripLooper) {
+              console.log('tripLooper is:', tripLooper);
+
+
+
               //add trip to array if tripLooper.place matches $scope.text
-              if ( RegExp($scope.text, 'i').test(tripLooper.place) ) {
+              if ( RegExp($scope.text, 'i').test(tripLooper.place) &&
+                  !isDuplicateTrip(tripLooper._id)) {
                 for (property in tripLooper) {
                   tempUser[property] = tripLooper[property];
                 }
-                self.trips.push(tempUser);
+                self.searchedForTrips.push(tempUser);
               } // end if
             }) // end personLooper forEach
           }) // end res.data forEach
-          console.log('self.trips is ', self.trips);
+          console.log('self.searchedForTrips is ', self.searchedForTrips);
           $state.go('search-results')
         })
         /*

@@ -53,32 +53,29 @@ router.get('/location' , function(req, res){
   }
 
   //find the relevant data in the database
-  User.find().exec()
-    .then(function(data){
-      //data is a list of users
-      //loop through the usrs and return the trips where trip.place === place
-      data.forEach(function(userLooper){
-        userLooper.trips.forEach(function(tripLooper){
-          if (tripLooper.place.search(new RegExp(place, 'i')) !== -1){
-            result.push(userLooper);
-          }
-        });
-      });
-    })
+  // User.find().exec()
+  User.find({
+    'trips.place': new RegExp(req.query.place, 'i')
+  })
     .catch(function(err){
       console.log(err);
     })
     //send the data to Angular in a res.json command
-    .then(function(){
+    .then(function(result){
+      console.log('after new regex search, result is:', result);
       res.status(200).json(result);
-    });
+    })
+    .catch(function(err){
+      console.log(err);
+    })
 });
 
 router.get('/user/:userId/trips', function(req, res){
 
-  User.findOne({userId: req.params.userId}).exec()
+  // User.findOne({userId: req.user.userId}).exec()
+  User.findById(req.user._id).exec()
     .then(function(data){
-      res.json(data)
+      res.json(data.trips) // send only the trips info
     })
     .catch(function(err){
       console.log(err);
