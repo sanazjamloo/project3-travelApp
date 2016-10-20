@@ -11,7 +11,8 @@
       this.signupusername = null;
       this.signuppassword = null;
       this.signuperror = null;
-      this.trips = [];
+      this.myTrips = [];
+      this.searchedForTrips = [];
       this.username = '';
 
       this.newTrip = {
@@ -59,7 +60,7 @@
             url: '/user/'+response.data.userId+'/trips'
           })
           .then(function(res){
-            self.trips = res.data;
+            self.myTrips = res.data.trips;
           })
           .then(function(){
             $state.go('user');
@@ -86,6 +87,7 @@
       }; //end this.logout
 
       this.search = function(){
+        self.searchedForTrips = [];
         $http({
           method: 'GET',
           url: '/location?place='+$scope.text,
@@ -100,6 +102,8 @@
           // filter out people.trips that don't equal $scope.text
 
           var tempUser = {};
+          console.log('self.searchedForTrips is:', self.searchedForTrips);
+          console.log('people who have been to searchString is:', people);
           res.data.forEach(function(personLooper){
             tempUser = {};
             tempUser.username = personLooper.username;
@@ -109,11 +113,11 @@
                 for (property in tripLooper) {
                   tempUser[property] = tripLooper[property];
                 }
-                self.trips.push(tempUser);
+                self.searchedForTrips.push(tempUser);
               } // end if
             }) // end personLooper forEach
           }) // end res.data forEach
-          console.log('self.trips is ', self.trips);
+          console.log('self.searchedForTrips is ', self.searchedForTrips);
           $state.go('search-results')
         })
         /*
