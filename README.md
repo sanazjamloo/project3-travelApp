@@ -38,6 +38,9 @@ https://wireframe.cc/pro/pp/9424bb5ea56104
 - Link to Heroku
 https://trelp.herokuapp.com/
 
+- Link to Github repo
+https://github.com/sanazjamloo/project3-travelApp
+
 # Approach Taken
 
 1. We started by drawing out our Wireframes using wireframe.cc.

@@ -35,7 +35,6 @@
 
           //ask the server for this user's updated trip array
 
-
         })
         .catch(function(err) {
           console.error(err);
