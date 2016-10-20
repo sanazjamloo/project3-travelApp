@@ -1,5 +1,5 @@
 body {
-  background-color: rgba(203,200,149, 0.5);
+  background-color: rgba(203,200,149, 0.4);
   margin: 3rem;
   margin-bottom: 8rem;
 }
@@ -74,7 +74,7 @@ form {
 }
 
 footer {
-  background-color: rgba(203,200,149, 0.9);
+  background-color: rgba(203,192,140, 0.9);
   position: fixed;
   right: 0;
   bottom: 0;

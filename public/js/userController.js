@@ -7,11 +7,14 @@
       var self = this;
 
       this.currentUser = null;
+      this.editedTrip = {};
+      this.showEditForm = false;
       this.password = '';
       this.signupusername = null;
       this.signuppassword = null;
       this.signuperror = null;
-      this.trips = [];
+      this.myTrips = [];
+      this.searchedForTrips = [];
       this.username = '';
 
       this.newTrip = {
@@ -34,11 +37,18 @@
           self.newTrip = {};
 
           //ask the server for this user's updated trip array
-
+          return $http({
+            method: 'GET',
+            url: '/user/'+response.data.userId+'/trips'
+          })
         })
         .catch(function(err) {
           console.error(err);
-        });
+        })
+        .then(function(response){
+          console.log('response is:', response);
+          self.myTrips = response.data;
+        })
       }; //end this.addTrip
 
       this.login = function() {
@@ -53,7 +63,16 @@
         .then(function(response) {
           console.log('in login, response.data is ', response.data);
           self.currentUser = response.data.username;
-          $state.go('user');
+          return $http({
+            method: 'GET',
+            url: '/user/'+response.data.userId+'/trips'
+          })
+          .then(function(res){
+            self.myTrips = res.data;
+          })
+          .then(function(){
+            $state.go('user');
+          })
         })
         .catch(function(err) {
           console.error(err);
@@ -75,7 +94,15 @@
         });
       }; //end this.logout
 
+      this.setTripToEdit = function(trip) {
+        self.showEditForm = true;
+        trip.dateEnd = new Date(trip.dateEnd);
+        trip.dateStart = new Date(trip.dateStart);
+        self.editedTrip = trip;
+      }//end setTripToEdit
+
       this.search = function(){
+        self.searchedForTrips = [];
         $http({
           method: 'GET',
           url: '/location?place='+$scope.text,
@@ -89,23 +116,42 @@
           var people = res.data;
           // filter out people.trips that don't equal $scope.text
 
-          var temp = {};
-          var username = '';
+          var tempUser = {};
+          console.log('self.searchedForTrips is:', self.searchedForTrips); // XXX this is printing duplicates.  Why?
+          console.log('people who have been to searchString is:', people);
+          // loop through people and then loop through that person's trip to find all trips where 'place' contains searchString, and display those in the browser, including the username associated with each trip
 
-          res.data.forEach(function(personLooper){
-            temp = {};
-            username = personLooper.username;
-            temp.username = username;
+          var isDuplicateTrip = function(id) {
+            var result = self.searchedForTrips.find(function(tripLooper){
+              return tripLooper._id === id;
+            });
+
+            if (result === undefined) {
+              return false;
+            } else {
+              return true;
+            }
+          };
+
+          people.forEach(function(personLooper){
+            tempUser = {};
+            tempUser.username = personLooper.username;
             personLooper.trips.forEach(function(tripLooper) {
+              console.log('tripLooper is:', tripLooper);
+
+
+
               //add trip to array if tripLooper.place matches $scope.text
-              if ( RegExp($scope.text, 'i').test(tripLooper.place) ) {
+              if ( RegExp($scope.text, 'i').test(tripLooper.place) &&
+                  !isDuplicateTrip(tripLooper._id)) {
                 for (property in tripLooper) {
-                  temp[property] = tripLooper[property];
+                  tempUser[property] = tripLooper[property];
                 }
-                self.trips.push(temp);
+                self.searchedForTrips.push(tempUser);
               } // end if
             }) // end personLooper forEach
           }) // end res.data forEach
+          console.log('self.searchedForTrips is ', self.searchedForTrips);
           $state.go('search-results')
         })
         /*
@@ -161,6 +207,31 @@
           $timeout(resetMessage,3000);
         });
       }; //end this.signup
+
+      // DELETE A TRIP FROM A USER'S ARRAY
+      this.deleteTrip = function(id) {
+        $http.delete(`/private/trip/${id}`)
+        .then(function(response) {
+          //get the most recent trip data
+          self.myTrips = response.data;
+        });
+      }; //end this.deleteTrip
+
+      // EDIT A TRIP IN A USER'S ARRAY
+      this.editTrip = function(trip) {
+
+        self.showEditForm = false;
+
+        $http.patch(`/private/trip/${trip.tripId}`, {tripData: trip})
+        .then(function(response) {
+          console.log(response.data);
+
+          //don't need to update self.myTrips because editing newTrip updates
+          //it in real time
+
+          $state.go('user');
+        });
+      }; //end this.editTrip
 
     } // end UserController function
 })()

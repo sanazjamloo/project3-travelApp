@@ -7,7 +7,9 @@ var methodOverride = require('method-override');
 var moment         = require('moment-timezone');
 var mongoose       = require('mongoose');
 mongoose.Promise   = global.Promise;
-mongoose.connect('mongodb://localhost/project3-travelApp');
+var mongoURI       = process.env.MONGODB_URI || 'mongodb://localhost/project3-travelApp'
+mongoose.connect(mongoURI);
+// mongoose.connect('mongodb://localhost/project3-travelApp');
 var User = require('./models/user.js');
 var passport       = require('passport');
 var LocalStrategy  = require('passport-local').Strategy;
@@ -15,6 +17,7 @@ var LocalStrategy  = require('passport-local').Strategy;
 //app settings
 var app = express();
 var port = process.env.PORT || 3000;
+//app.listen(process.env.PORT || 3000);
 
 app.set('view engine', 'hbs');
 app.use(logger('dev'));
