@@ -16,9 +16,9 @@ router.post('/signup', function(req, res){
     req.body.password,
     function(err, user) {
       if (err) {
-        res.send(err)
+        res.status(406).json({ message: err });
       } else {
-        res.send('user created');
+        res.status(200).json({ message: 'user created'});
       }
     }); // end function
 });
@@ -29,18 +29,14 @@ router.post('/signup', function(req, res){
 router.post('/login', passport.authenticate('local'), function(req, res) {
   req.session.save(function(err) {
     if (err) {
-      return next(err);
+      res.status(406).json({ message: err});
     } else {
-      console.warn('WRITE CODE TO SEND THE USER TO THE RIGHT PLACE');
-      console.log('authenicated');
+      res.status(200).json({ message: 'successful login', username: req.body.username, userId: req.user.userId});
+
     }
+
   });
 });
-
-
-
-
-
 
 
 //NOTE we are sending data to Angular.
@@ -48,7 +44,6 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 
 router.get('/location' , function(req, res){
   //first we need to figure out what location the user wants to know about.
-
   var place = req.query.place;
   var result = [];
 
@@ -58,35 +53,29 @@ router.get('/location' , function(req, res){
   }
 
   //find the relevant data in the database
-  User.find().exec()
-    .then(function(data){
-      //data is a list of users
-      //loop through the usrs and return the trips where trip.place === place
-      data.forEach(function(userLooper){
-        console.log('username is ', userLooper.username);
-        userLooper.trips.forEach(function(tripLooper){
-          if (tripLooper.place.search(new RegExp(place, 'i')) !== -1){
-            result.push(userLooper);
-          }
-        });
-      });
-
-      console.log('after looping through users, result is ', result);
-    })
+  // User.find().exec()
+  User.find({
+    'trips.place': new RegExp(req.query.place, 'i')
+  })
     .catch(function(err){
       console.log(err);
     })
     //send the data to Angular in a res.json command
-    .then(function(){
-      res.json(result);
-    });
+    .then(function(result){
+      console.log('after new regex search, result is:', result);
+      res.status(200).json(result);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
 });
 
 router.get('/user/:userId/trips', function(req, res){
 
-  User.findOne({userId: req.params.userId}).exec()
+  // User.findOne({userId: req.user.userId}).exec()
+  User.findById(req.user._id).exec()
     .then(function(data){
-      res.json(data)
+      res.json(data.trips) // send only the trips info
     })
     .catch(function(err){
       console.log(err);

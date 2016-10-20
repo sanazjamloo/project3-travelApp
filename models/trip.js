@@ -11,7 +11,7 @@ var TripSchema = mongoose.Schema({
   place: String,
   tripId: String
 
-})
+});
 
 
 module.exports = mongoose.model('Trip', TripSchema);

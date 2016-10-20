@@ -23,6 +23,7 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(express.static(__dirname + '/public'));   //used for static content like CSS files and pictures
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 
 
