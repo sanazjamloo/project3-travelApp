@@ -24,16 +24,18 @@
       };
 
       this.addTrip = function() {
-        console.log(self.newTrip);
         $http({
           method: 'POST',
-          url: '/private'+self.currentUser,
-          data: {
-            username: self.username,
-            password: self.password
-          }
+          url: '/private/'+self.currentUser,
+          data: { data: self.newTrip }
         })
         .then(function(response) {
+          //clear the form
+          self.newTrip = {};
+
+          //ask the server for this user's updated trip array
+
+
         })
         .catch(function(err) {
           console.error(err);

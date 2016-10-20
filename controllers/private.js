@@ -22,16 +22,19 @@ router.get('/logout', function(req,res) {
 });
 
 //add trip
-router.post('/:userName', authorize, function(req,res) {
+router.post('/:username', authorize, function(req,res) {
 
     User.findOne({username: req.params.username}).exec()
     .then(function(user){
       if (!user) {
         res.status(406).json({message: 'username not found'});
+      } else {
+        console.log('found ', user.username);
       }
 
+      console.log('in add trip, req.body is ', req.body);
       console.log('in add trip, req.user is ', req.user);
-      var newTrip = req.body;
+      var newTrip = req.body.data;
       newTrip.tripId = Date.now().toString();
 
       user.trips.push(new Trip(newTrip));
