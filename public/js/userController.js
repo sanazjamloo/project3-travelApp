@@ -54,7 +54,16 @@
         .then(function(response) {
           console.log('in login, response.data is ', response.data);
           self.currentUser = response.data.username;
-          $state.go('user');
+          return $http({
+            method: 'GET',
+            url: '/user/'+response.data.userId+'/trips'
+          })
+          .then(function(res){
+            self.trips = res.data;
+          })
+          .then(function(){
+            $state.go('user');
+          })
         })
         .catch(function(err) {
           console.error(err);
@@ -90,23 +99,21 @@
           var people = res.data;
           // filter out people.trips that don't equal $scope.text
 
-          var temp = {};
-          var username = '';
-
+          var tempUser = {};
           res.data.forEach(function(personLooper){
-            temp = {};
-            username = personLooper.username;
-            temp.username = username;
+            tempUser = {};
+            tempUser.username = personLooper.username;
             personLooper.trips.forEach(function(tripLooper) {
               //add trip to array if tripLooper.place matches $scope.text
               if ( RegExp($scope.text, 'i').test(tripLooper.place) ) {
                 for (property in tripLooper) {
-                  temp[property] = tripLooper[property];
+                  tempUser[property] = tripLooper[property];
                 }
-                self.trips.push(temp);
+                self.trips.push(tempUser);
               } // end if
             }) // end personLooper forEach
           }) // end res.data forEach
+          console.log('self.trips is ', self.trips);
           $state.go('search-results')
         })
         /*
