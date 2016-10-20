@@ -54,7 +54,16 @@
         .then(function(response) {
           console.log('in login, response.data is ', response.data);
           self.currentUser = response.data.username;
-          $state.go('user');
+          return $http({
+            method: 'GET',
+            url: '/user/'+response.data.userId+'/trips'
+          })
+          .then(function(res){
+            self.trips = res.data;
+          })
+          .then(function(){
+            $state.go('user');
+          })
         })
         .catch(function(err) {
           console.error(err);
