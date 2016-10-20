@@ -16,7 +16,7 @@ router.post('/signup', function(req, res){
     req.body.password,
     function(err, user) {
       if (err) {
-        res.status(500).json({ message: err});
+        res.status(406).json({ message: err });
       } else {
         res.status(200).json({ message: 'user created'});
       }
@@ -27,7 +27,7 @@ router.post('/signup', function(req, res){
 router.post('/login', passport.authenticate('local'), function(req, res) {
   req.session.save(function(err) {
     if (err) {
-      res.status(500).json({ message: err});
+      res.status(406).json({ message: err});
     } else {
       res.status(200).json({ message: 'successful login', username: req.body.username});
     }

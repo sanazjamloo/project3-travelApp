@@ -2,12 +2,15 @@
   angular.module('travelApp')
     .controller('UserController', UserController);
 
-    function UserController($scope, $http, $state){
+    function UserController($scope, $http, $state, $timeout){
 
       var self = this;
 
       this.currentUser = null;
       this.password = '';
+      this.signupusername = null;
+      this.signuppassword = null;
+      this.signuperror = null;
       this.trips = [];
       this.username = '';
 
@@ -101,30 +104,36 @@
         })
       }; // end this.search
 
-
-
-      // html -> controller.login() send user and pw -> index.js POST route -> controller.login() test user and pw are good -> change state.  User must persist in all states, so look at Christine's slack message with URL with Colin's solution and integrate.
-      //
-      // $http.get('/helpers/get-user')
-      // .then(function(response) {
-      //   self.currentUser = response.data.user;
-      //   console.log('from get-user, currentUser is ', self.currentUser);
-      // })
-      // .catch(function(err) {
-      //   console.error(err);
-      // });
-
-      /*
-        For signup route:
-              {
-          "message": {
-            "name": "UserExistsError",
-            "message": "A user with the given username is already registered"
+      this.signup = function() {
+        $http({
+          method: 'POST',
+          url: '/signup',
+          data: {
+            username: self.signupusername,
+            password: self.signuppassword
           }
-        }
-      */
+        })
+        .then(function(response) {
+          console.log('in signup, response.data is ', response.data);
 
+          //clear form
+          self.signupusername = '';
+          self.signuppassword = '';
 
+          $state.go('home');
+        })
+        .catch(function(err) {
+          var resetMessage = function() {
+            self.signuperror = '';
+          }
+
+          self.signuperror = err.data.message.message;
+          console.error(err);
+
+          //clear the message after 3 seconds
+          $timeout(resetMessage,3000);
+        });
+      }; //end this.signup
 
     } // end UserController function
 })()

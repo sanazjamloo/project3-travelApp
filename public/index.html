@@ -15,21 +15,26 @@
 
       <div class="left">
         {{ users.username }} {{ users.password }} {{ users.currentUser }}
-        <div ng-show="true" class="login-register"> <!-- CHANGE NG-HIDE -->
-          <form id="test" ng-submit="users.login()" method="post"> <!-- CHANGE ACTION AND METHOD -->
-            <input type="text" ng-model="users.username" placeholder="email..."> <!-- should this be ng-submit or something else? -->
+        <div ng-show="true" class="login-register">
+          <form id="login" ng-submit="users.login()" method="post">
+            <p><strong>Log in</strong></p>
+            <input type="text" ng-model="users.username" placeholder="email...">
             <input type="password" ng-model="users.password" placeholder="password...">
             <input type="submit" name="test" value="Login">
           </form>
-          <form id="register" action="signup" method="post"> <!-- CHANGE ACTION AND METHOD -->
-            <input type="text" name="username" placeholder="email...">
-            <input type="password" name="password" placeholder="password...">
-            <input type="submit" name="register" value="register">
+          <p style="color:red">
+            {{ users.signuperror }}
+          </p>
+          <form id="signup" ng-submit="users.signup()" method="post" ng-if="!users.currentUser">
+            <p><strong>Sign up</strong></p>
+            <input type="text" ng-model="users.signupusername" placeholder="email...">
+            <input type="password" ng-model="users.signuppassword" placeholder="password...">
+            <input type="submit" name="test" value="Sign up">
           </form>
         </div>
 
-        <a ui-sref-active="active" ui-sref="user" ng-show="true" class="welcome"> <!-- CHANGE NG-HIDE -->
-          <h3>Welcome, {{users.all[1].userName}}!</h3>
+        <a ui-sref-active="active" ui-sref="user" ng-show="true" class="welcome" ng-if="users.currentUser"> <!-- CHANGE NG-HIDE -->
+          <h3>Welcome, {{ users.currentUser }}!</h3>
             <img src="https://pbs.twimg.com/media/Cjld9C0XIAEmdcd.jpg" alt="Woman on vacation, looking out over the city into the bay"/>
         </a>
       </div>
