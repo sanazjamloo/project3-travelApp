@@ -14,6 +14,32 @@
       this.trips = [];
       this.username = '';
 
+      this.newTrip = {
+        dateStart: null,
+        dateEnd: null,
+        description: null,
+        foo: null,
+        place: null,
+        tripId: null
+      };
+
+      this.addTrip = function() {
+        console.log(self.newTrip);
+        $http({
+          method: 'POST',
+          url: '/private'+self.currentUser,
+          data: {
+            username: self.username,
+            password: self.password
+          }
+        })
+        .then(function(response) {
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+      }; //end this.addTrip
+
       this.login = function() {
         $http({
           method: 'POST',
