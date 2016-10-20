@@ -24,13 +24,21 @@
           // all users.
           var people = res.data;
           // filter out people.trips that don't equal $scope.text
+
+          var temp = {};
           var username = '';
+
           res.data.forEach(function(personLooper){
+            temp = {};
             username = personLooper.username;
+            temp.username = username;
             personLooper.trips.forEach(function(tripLooper) {
               //add trip to array if tripLooper.place matches $scope.text
               if ( RegExp($scope.text, 'i').test(tripLooper.place) ) {
-                self.trips.push({ username: username, trip: tripLooper });
+                for (property in tripLooper) {
+                  temp[property] = tripLooper[property];
+                }
+                self.trips.push(temp);
               } // end if
             }) // end personLooper forEach
           }) // end res.data forEach

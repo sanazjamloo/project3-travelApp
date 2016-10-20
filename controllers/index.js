@@ -25,10 +25,6 @@ router.post('/signup', function(req, res){
 
 //LOG IN ROUTE
 router.post('/login', passport.authenticate('local'), function(req, res) {
-  console.log('before saving session, req.body is ', req.body);
-
-  
-
   req.session.save(function(err) {
     if (err) {
       res.status(500).json({ message: err});
@@ -45,8 +41,6 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 
 router.get('/location' , function(req, res){
   //first we need to figure out what location the user wants to know about.
-  console.log(req.query);
-
   var place = req.query.place;
   var result = [];
 
@@ -61,22 +55,19 @@ router.get('/location' , function(req, res){
       //data is a list of users
       //loop through the usrs and return the trips where trip.place === place
       data.forEach(function(userLooper){
-        console.log('username is ', userLooper.username);
         userLooper.trips.forEach(function(tripLooper){
           if (tripLooper.place.search(new RegExp(place, 'i')) !== -1){
             result.push(userLooper);
           }
         });
       });
-
-      console.log('after looping through users, result is ', result);
     })
     .catch(function(err){
       console.log(err);
     })
     //send the data to Angular in a res.json command
     .then(function(){
-      res.json(result);
+      res.status(200).json(result);
     });
 });
 
