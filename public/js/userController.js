@@ -210,8 +210,13 @@
       }
 
       // EDIT A TRIP IN A USER'S ARRAY
-      this.editTrip = function(id) {
-        $http.delete(`/user/${id}`)
+      this.editTrip = function(trip) {
+        console.log('trip is ', trip);
+        $http.patch(`/user/${trip.tripId}`, {tripData: trip})
+        .then(function(response) {
+          console.log(response.data);
+          $state.go('user');
+        });
         // USE BELOW CODE AS A MODEL
         // NOTE: probably need to create `isEditing` and `isCreating` as booleans
         // outside this.editTrip, and toggle them inside this.editTrip so that
@@ -229,7 +234,7 @@
           this.isEditing = false;
         }
         */
-      }
+      }; //end this.editTrip
 
     } // end UserController function
 })()
