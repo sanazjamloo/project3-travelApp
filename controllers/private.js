@@ -82,10 +82,12 @@ router.patch('/trip/:tripId', authorize, function(req,res) {
 
 //delete trip
 router.delete('/trip/:tripId', authorize, function(req,res) {
-  //User.findById(req.user._id).exec()
-  User.findById('5806d92db5fd1e059a394c6e').exec()
+  User.findById(req.user._id).exec()
   .then(function(user){
-    // if (!user) { return; }
+    if (!user) {
+      res.status(400).json({message: 'user not found'});
+      return;
+    }
 
     var removeItemAt = user.trips.findIndex(function(item){
       return item.tripId === req.params.tripId;
@@ -99,7 +101,7 @@ router.delete('/trip/:tripId', authorize, function(req,res) {
   })
   .then(function(data) {
     console.log('removed the trip');
-    res.status(200).json({message: 'removed'});
+    res.status(200).json(data.trips);
   })
   .catch(function(err) {
     console.error(err);
