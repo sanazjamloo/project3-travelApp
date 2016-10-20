@@ -4,7 +4,7 @@ var TripSchema = require('./trip.js').schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var UserSchema = mongoose.Schema({
-	username: String,
+	username: { type: String, unique: true },
 	password: String,
 	trips: [TripSchema],
 	userId: String

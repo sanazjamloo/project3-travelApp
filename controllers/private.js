@@ -3,24 +3,38 @@ var router  = express.Router();
 var Trip = require('../models/trip.js');
 var User = require('../models/user.js');
 
+var authorize = function(req, res, next) {
+  if (!req.user) {
+    res.status(401).json({message: 'unauthorized'});
+  } else {
+    next();
+  }
+}
+
 //logout
 router.get('/logout', function(req,res) {
   try {
     req.logout();
+    res.status(200).json({message: 'logout successful'});
   } catch (e) {
     console.log(e);
   }
 });
 
 //add trip
-router.post('/:userId', function(req,res) {
+router.post('/:username', authorize, function(req,res) {
 
-    //User.findById(req.user._id).exec()
-    User.findById('5806d92db5fd1e059a394c6e').exec()
+    User.findOne({username: req.params.username}).exec()
     .then(function(user){
-      // if (!user) { return; }
+      if (!user) {
+        res.status(406).json({message: 'username not found'});
+      } else {
+        console.log('found ', user.username);
+      }
 
-      var newTrip = req.body;
+      console.log('in add trip, req.body is ', req.body);
+      console.log('in add trip, req.user is ', req.user);
+      var newTrip = req.body.data;
       newTrip.tripId = Date.now().toString();
 
       user.trips.push(new Trip(newTrip));
@@ -35,7 +49,7 @@ router.post('/:userId', function(req,res) {
 });
 
 //edit trip
-router.patch('/trip/:tripId', function(req,res) {
+router.patch('/trip/:tripId', authorize, function(req,res) {
   //User.findById(req.user._id).exec()
   User.findById('5806d92db5fd1e059a394c6e').exec()
   .then(function(user){
@@ -60,7 +74,7 @@ router.patch('/trip/:tripId', function(req,res) {
 });
 
 //delete trip
-router.delete('/trip/:tripId', function(req,res) {
+router.delete('/trip/:tripId', authorize, function(req,res) {
   //User.findById(req.user._id).exec()
   User.findById('5806d92db5fd1e059a394c6e').exec()
   .then(function(user){
