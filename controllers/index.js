@@ -51,38 +51,78 @@ router.get('/location' , function(req, res){
   }
 
   //find the relevant data in the database
-  User.find().exec()
-    .then(function(data){
-      //data is a list of users
-      //loop through the usrs and return the trips where trip.place === place
-      data.forEach(function(userLooper){
-        userLooper.trips.forEach(function(tripLooper){
-          if (tripLooper.place.search(new RegExp(place, 'i')) !== -1){
-            result.push(userLooper);
-          }
-        });
-      });
-    })
+  // User.find().exec()
+  User.find({
+    'trips.place': new RegExp(req.query.place, 'i')
+  })
     .catch(function(err){
       console.log(err);
     })
     //send the data to Angular in a res.json command
-    .then(function(){
+    .then(function(result){
+      console.log('after new regex search, result is:', result);
       res.status(200).json(result);
-    });
+    })
+    .catch(function(err){
+      console.log(err);
+    })
 });
 
 router.get('/user/:userId/trips', function(req, res){
 
-  User.findOne({userId: req.params.userId}).exec()
+  // User.findOne({userId: req.user.userId}).exec()
+  User.findById(req.user._id).exec()
     .then(function(data){
-      res.json(data)
+      res.json(data.trips) // send only the trips info
     })
     .catch(function(err){
       console.log(err);
     });
 });
 
+// DELETE A TRIP FROM A USER'S DATABASE
+router.delete('/user/:tripId', function(req, res){
+  User.findOneAndUpdate(
+    {'_id': req.user._id},
+    {$pull: {'trips': {'_id': req.params.tripId}}
+  })
+  .catch(function(err){
+    console.log(err);
+  })
+  .then(function(user){
+    console.log('user is:', user);
+    return user; // do res.json instead of return, I think
+  })
+  .catch(function(err){
+    console.log(err);
+  })
+})
+
+// EDIT A TRIP IN A USER'S DATABASE
+router.put('/user/:tripId', function(req, res) {
+  User.update({_id: req.user._id}
+
+    // USE BELOW CODE AS A MODEL from
+    //w08d03/instructor_notes/ang_todos_solution/controllers/todos.js
+    /*
+    router.put('/:todoId', function(req, res) {
+      var editedTodo;
+
+      Todo.update({_id: req.params.todoId}, req.body)
+        .then(function() {
+          return Todo.find({}).exec();
+        })
+        .then(function(todos) {
+          console.log('ALL TODOS>>>>', todos)
+
+          res.json({message: "succesfully updated", todos: todos})
+        })
+        .catch(function(err) {
+          res.json(400, err)
+        });
+    })
+    */
+  )
 
 
 
@@ -92,5 +132,9 @@ router.get('/user/:userId/trips', function(req, res){
 
 
 
+
+
+
+})
 
 module.exports = router;

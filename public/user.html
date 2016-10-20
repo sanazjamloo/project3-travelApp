@@ -31,7 +31,7 @@
 </div>
 
 <div class="module-card-wrap">
-  <div class="module-card" ng-repeat="trip in users.trips.trips">
+  <div class="module-card" ng-repeat="trip in users.myTrips">
     <div class="module-card-title">{{trip.place}}</div>
     <div class="module-card-meta">
       <div class="module-card-category">
@@ -51,7 +51,8 @@
         <p>{{trip.description}}</p>
       </div>
 
-      <button class="module-card-button">See More</button>
+      <button ng-click="users.deleteTrip(trip._id)" class="module-card-button">Delete Me!</button>
+      <button ng-click="users.editTrip(trip._id)" class="module-card-button">Edit Me!</button>
     </div>
   </div>
 </div>
