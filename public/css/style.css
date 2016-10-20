@@ -10,11 +10,12 @@ header {
   /*margin-bottom: 1%/* margin goes away at a certain point, need an @media query */*/
 }
 
-.welcome a { /* <a> tags inside the .welcome class */
+.welcome  { /* <a> tags inside the .welcome class */
   display: inline-block;
   font-family: 'Josefin Slab', serif;
-  font-size: 2em;
+  font-size: 1em;
   font-weight: 400;
+  text-align: center;
 }
 /*.welcome img{ /* <img> tags inside the .welcome class */
   /*height: 55%;
@@ -29,31 +30,68 @@ header {
   font-weight: 100;
   justify-content: center;
   text-align: center;
-  text-decoration: none;
   line-height: 60%;
+}
+
+.title a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.middle {
+  text-decoration: none;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+  align-self: flex-end;
+  box-sizing:border-box;
 }
 
 h3 {
 
 }
 .home-image { /* image on the home state */
-  width: 100%;
   min-height: 100%;
   min-width: 1024px;
   box-shadow:  10px 10px 10px 10px #888;
   margin-top: 1%;
+  width: 100%;
 }
 
 form {
-  padding: 0.5rem;
+  padding: -0.5rem;
 }
 
+#signup, #login, #logout, #demo {
+  color: #452804;
+  /*display: inline;*/
+  font-family: 'Josefin Slab', serif;
+  font-size: 1.2em;
+  text-decoration: none;
+  padding: 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+
 footer {
+  background-color: rgba(203,200,149, 0.9);
   position: fixed;
   right: 0;
   bottom: 0;
+  color: #452804;
   left: 0;
   padding: 0.3rem;
-  background-color: #efefef;
+  /*background-color: #efefef;*/
   text-align: center;
+  font-family: 'Josefin Slab', serif;
 }
