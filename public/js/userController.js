@@ -210,48 +210,30 @@
 
       // DELETE A TRIP FROM A USER'S ARRAY
       this.deleteTrip = function(id) {
-        $http.delete(`/user/${id}`)
-        // take the response from index.js and do something with it
-        // .then(function(res) {
-        //   console.log('res is:', res);
-        //   self.myTrips = res.data.trips; // not sure if this is right
-        // })
-      }
+        $http.delete(`/private/trip/${id}`)
+        .then(function(response) {
+          console.log('response is:', response);
+
+          //get the most recent trip data
+
+          // self.myTrips = res.data.trips; // not sure if this is right
+        });
+      }; //end this.deleteTrip
 
       // EDIT A TRIP IN A USER'S ARRAY
       this.editTrip = function(trip) {
 
         self.showEditForm = false;
 
-        console.log('trip is ', trip);
-
         $http.patch(`/private/trip/${trip.tripId}`, {tripData: trip})
         .then(function(response) {
           console.log(response.data);
 
-          //update self.myTrips
-
-
+          //don't need to update self.myTrips because editing newTrip updates
+          //it in real time
 
           $state.go('user');
         });
-        // USE BELOW CODE AS A MODEL
-        // NOTE: probably need to create `isEditing` and `isCreating` as booleans
-        // outside this.editTrip, and toggle them inside this.editTrip so that
-        // the ngShow works properly in the browser.  See
-        // w08d03/instructor_notes/ang_todos_solution/, specifically
-        // public/js/app.js and public/index.html.
-        /*
-        function editTodo(todo) {
-          $http.put(`/todos/${todo._id}`, todo)
-            .then(function(response){
-              console.log(response);
-              self.todos = response.data.todos;
-            })
-
-          this.isEditing = false;
-        }
-        */
       }; //end this.editTrip
 
     } // end UserController function
