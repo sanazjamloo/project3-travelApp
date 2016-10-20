@@ -218,17 +218,7 @@
         // the ngShow works properly in the browser.  See
         // w08d03/instructor_notes/ang_todos_solution/, specifically
         // public/js/app.js and public/index.html.
-        /*
-        function editTodo(todo) {
-          $http.put(`/todos/${todo._id}`, todo)
-            .then(function(response){
-              console.log(response);
-              self.todos = response.data.todos;
-            })
 
-          this.isEditing = false;
-        }
-        */
       }
 
     } // end UserController function
