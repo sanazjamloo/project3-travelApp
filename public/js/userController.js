@@ -35,12 +35,18 @@
           self.newTrip = {};
 
           //ask the server for this user's updated trip array
-
-
+          return $http({
+            method: 'GET',
+            url: '/user/'+response.data.userId+'/trips'
+          })
         })
         .catch(function(err) {
           console.error(err);
-        });
+        })
+        .then(function(response){
+          console.log('response is:', response);
+          self.myTrips = response.data;
+        })
       }; //end this.addTrip
 
       this.login = function() {
@@ -60,7 +66,7 @@
             url: '/user/'+response.data.userId+'/trips'
           })
           .then(function(res){
-            self.myTrips = res.data.trips;
+            self.myTrips = res.data;
           })
           .then(function(){
             $state.go('user');

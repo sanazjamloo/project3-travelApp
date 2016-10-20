@@ -74,9 +74,10 @@ router.get('/location' , function(req, res){
 
 router.get('/user/:userId/trips', function(req, res){
 
-  User.findOne({userId: req.params.userId}).exec()
+  // User.findOne({userId: req.user.userId}).exec()
+  User.findById(req.user._id).exec()
     .then(function(data){
-      res.json(data)
+      res.json(data.trips) // send only the trips info
     })
     .catch(function(err){
       console.log(err);
