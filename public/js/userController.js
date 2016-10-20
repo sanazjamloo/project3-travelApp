@@ -7,8 +7,9 @@
       var self = this;
 
       this.currentUser = null;
-      this.password = '';
       this.editedTrip = {};
+      this.showEditForm = false;
+      this.password = '';
       this.signupusername = null;
       this.signuppassword = null;
       this.signuperror = null;
@@ -94,6 +95,9 @@
       }; //end this.logout
 
       this.setTripToEdit = function(trip) {
+        self.showEditForm = true;
+        trip.dateEnd = new Date(trip.dateEnd);
+        trip.dateStart = new Date(trip.dateStart);
         self.editedTrip = trip;
       }//end setTripToEdit
 
