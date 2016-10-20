@@ -11,6 +11,40 @@
       this.trips = [];
       this.username = '';
 
+      this.login = function() {
+        $http({
+          method: 'POST',
+          url: '/login',
+          data: {
+            username: self.username,
+            password: self.password
+          }
+        })
+        .then(function(response) {
+          console.log('in login, response.data is ', response.data);
+          self.currentUser = response.data.username;
+          $state.go('user');
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+      }; //end this.login
+
+      this.logout = function() {
+        $http({
+          method: 'GET',
+          url: '/private/logout'
+        })
+        .then(function(response) {
+          console.log('in logout, response.data is ', response.data);
+          self.currentUser = null;
+          $state.go('home');
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+      }; //end this.logout
+
       this.search = function(){
         $http({
           method: 'GET',
@@ -67,24 +101,7 @@
         })
       }; // end this.search
 
-      this.login = function() {
-        $http({
-          method: 'POST',
-          url: '/login',
-          data: {
-            username: self.username,
-            password: self.password
-          }
-        })
-        .then(function(response) {
-          console.log('in login, response.data is ', response.data);
-          self.currentUser = response.data.username;
-          $state.go('user');
-        })
-        .catch(function(err) {
-          console.error(err);
-        });
-      }; //end this.login
+
 
       // html -> controller.login() send user and pw -> index.js POST route -> controller.login() test user and pw are good -> change state.  User must persist in all states, so look at Christine's slack message with URL with Colin's solution and integrate.
       //

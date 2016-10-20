@@ -40,8 +40,8 @@
       </a>
 
       <div class="right">
-        <form class="" action="index.html" method="post">
-          <input ng-hide="true" type="submit" name="logout" value="logout"> <!-- CHANGE NG-HIDE -->
+        <form class="" ng-submit="users.logout()" method="post">
+          <input ng-if="users.currentUser" type="submit" name="logout" value="logout"> <!-- CHANGE NG-IF -->
         </form>
         <form ng-submit="users.search()">
           <input type="text" name="text" ng-model="text" placeholder="destination...">
