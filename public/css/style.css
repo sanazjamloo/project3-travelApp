@@ -11,6 +11,12 @@ header {
   margin-bottom: 20px;
 }
 
+.right,.left {
+  /*display: flex;
+  flex-direction: column;
+  background-color: pink;*/
+}
+
 input[type=text],input[type=password] {
   border: none;
   margin: 0.25rem;
@@ -80,9 +86,17 @@ input[type=submit]:active,.module-card-button:active {
   box-sizing:border-box;
 }
 
-h3 {
-
+.left-sidebar {
+  display: flex;
+  display: inline;
+  background-color: black;
 }
+
+.new-destination {
+  display: inline;
+  justify-content: flex-start;
+}
+
 .home-image { /* image on the home state */
   min-height: 100%;
   min-width: 1024px;

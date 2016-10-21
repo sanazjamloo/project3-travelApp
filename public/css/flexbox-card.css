@@ -59,6 +59,10 @@
   justify-content: center;
 }
 
+label {
+  color: #a9a9a9;
+}
+
 .module-card-button {
   background-color: rgba(69,40,4, 0.8);
   color: white;
@@ -67,6 +71,7 @@
   padding: 10px;
   width: 90%;
   margin: 15px;
+  /*align-self: flex-end;*/
 }
 
 @media screen and (min-width: 1400px) {
