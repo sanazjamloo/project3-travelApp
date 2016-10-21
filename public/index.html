@@ -50,7 +50,7 @@
           <input ng-if="users.currentUser" type="submit" name="logout" value="logout"> <!-- CHANGE NG-IF -->
         </form>
         <form ng-submit="users.search()">
-          <input type="text" name="text" ng-model="text" placeholder="destination...">
+          <input type="text" name="text" ng-model="users.searchText" placeholder="destination...">
           <input type="submit" name="submit" value="search">
           <!-- ui-sref-active="active" ui-sref="search-results"  -->
         </form>

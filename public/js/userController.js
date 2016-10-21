@@ -15,6 +15,7 @@
       this.signuperror = null;
       this.myTrips = [];
       this.searchedForTrips = [];
+      this.searchText = 'denver';
       this.username = '';
 
       this.newTrip = {
@@ -101,57 +102,52 @@
         self.editedTrip = trip;
       }//end setTripToEdit
 
+      /**
+       * Retuns an array of objects with a username and trip information where trips[n].place matches
+       * the search string.
+       * @version 1
+       * @param {object} people An array of person objects, each of which contains a property trips[].
+       * @param {string} searchString What to look for in trips[n].place.
+       * @returns {object} result An array of objects which are Trip objects + a username.
+       */
+      var filterTrips = function(people, searchString) {
+        var result = [];
+        var testRegex = new RegExp(searchString, 'i');
+
+        console.log('in filterTrips, people is ', people);
+        console.log('in filterTrips, searchString is ', searchString);
+
+        people.forEach(function(peopleLooper) {
+          for (var i = 0; i < peopleLooper.trips.length; i++) {
+            if (testRegex.test(peopleLooper.trips[i].place)) {
+              peopleLooper.trips[i].username = peopleLooper.username;
+              result.push(peopleLooper.trips[i]);
+            }
+          }
+        });
+
+        console.log('at end of filterTrips, result is ', result);
+        return  result;
+      }; //end filterTrips
+
       this.search = function(){
-        self.searchedForTrips = [];
         $http({
           method: 'GET',
-          url: '/location?place='+$scope.text,
+          url: '/location?place='+self.searchText,
           data: {
-            place: { searchString: $scope.text }
+            place: { searchString: self.searchText }
           }
         })
         .then(function(res) {
-          // send the user to search-results.html state, and display
-          // all users.
+          self.searchedForTrips = [];
           var people = res.data;
-          // filter out people.trips that don't equal $scope.text
 
-          var tempUser = {};
-          console.log('self.searchedForTrips is:', self.searchedForTrips); // XXX this is printing duplicates.  Why?
-          console.log('people who have been to searchString is:', people);
-          // loop through people and then loop through that person's trip to find all trips where 'place' contains searchString, and display those in the browser, including the username associated with each trip
+          console.log('after search request, people is ', people);
 
-          var isDuplicateTrip = function(id) {
-            var result = self.searchedForTrips.find(function(tripLooper){
-              return tripLooper._id === id;
-            });
-
-            if (result === undefined) {
-              return false;
-            } else {
-              return true;
-            }
-          };
-
-          people.forEach(function(personLooper){
-            tempUser = {};
-            tempUser.username = personLooper.username;
-            personLooper.trips.forEach(function(tripLooper) {
-              console.log('tripLooper is:', tripLooper);
-
-
-
-              //add trip to array if tripLooper.place matches $scope.text
-              if ( RegExp($scope.text, 'i').test(tripLooper.place) &&
-                  !isDuplicateTrip(tripLooper._id)) {
-                for (property in tripLooper) {
-                  tempUser[property] = tripLooper[property];
-                }
-                self.searchedForTrips.push(tempUser);
-              } // end if
-            }) // end personLooper forEach
-          }) // end res.data forEach
           console.log('self.searchedForTrips is ', self.searchedForTrips);
+
+          self.searchedForTrips = filterTrips(people, self.searchText);
+
           $state.go('search-results')
         })
         /*
@@ -176,6 +172,7 @@
           console.log(err);
         })
       }; // end this.search
+
 
       this.signup = function() {
         $http({
