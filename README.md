@@ -8,10 +8,18 @@ Trelp is a web application that allows users to keep track of their trips, and s
 
 # User Story
 
-- As an anonymous user, I can:
-- Sign up and create a new user account.
-- I can login into my account and add, and update the list of the locations that I have been, so I can keep track of my travel history. I am also able to leave comments on each travel, and share my experience with other visitors of the website. In addition, I can Search for a location so I can see who else has been there.
-- I can Sign Out at the end of the session so someone else doesn’t mess with my account.
+### As an anonymous user, I can:
+- create a new user account so I can login.
+- login so I can add trips I've taken.
+- search for a location so I can see others' experiences.
+
+### As a logged in user, I can:
+- add places I’ve been so I can keep track of them
+- view my trips so I can reminisce.
+- edit my locations so I can fix any mistakes I might have made. 
+- delete a place I’ve been so I can forget the sad, sad things that happened there…. Or in case I made a mistake.
+- sign out at the end of the session so someone else doesn’t mess with my account.
+
 
 
 # Necessary Deliverables
@@ -31,35 +39,31 @@ Trelp is a web application that allows users to keep track of their trips, and s
 - Node.js
 - Express.js
 - MongoDB
-
-- Trello Board
-https://trello.com/b/QaAAZ3Ln/travel-app-ga-project-03
-
-- Wireframes
-https://wireframe.cc/pro/pp/9424bb5ea56104
-
-- Link to Heroku
-https://trelp.herokuapp.com/
-
-- Link to Github repo
-https://github.com/sanazjamloo/project3-travelApp
+- [Trello Board]
+(https://trello.com/b/QaAAZ3Ln/travel-app-ga-project-03)
+- [Wireframes]
+(https://wireframe.cc/pro/pp/9424bb5ea56104)
+- [Link to Heroku]
+(https://trelp.herokuapp.com/)
+- [Link to Github repo]
+(https://github.com/sanazjamloo/project3-travelApp)
 
 # Approach Taken
 
 1. We started by drawing out our Wireframes using wireframe.cc.
 2. We made a planning board using Trello to keep track of the progress of the project.
-3. We created models, views, and controllers for the app. Full CRUD was achieved using Angular JavaScript.
+3. We created models, views, and controllers for the app. Full CRUD was achieved using AngularJS.
 4. Lastly, after all the debugging, the app was deployed to Heroku.
 
 # Future Implementations
 
-- Add Images as a visual reference to each location that the user has visited.
-- Add a rating for each trip and  show average ratings for a place when the user search for a place.
-- Add description, extra information about the location that a user has been to.
+- Add a rating for each trip and show average ratings for a place when the user search for a place.
+- Create more robust search that can filter more than just place names.
+- Use Google Maps API to display search results.
 - Follow another user.
 - Contact another user.
 
 # Developers
-1. Jason Fry
-2. Sanaz Jamloo
-3. Tom Murphree
+1. [Jason Fry] (https://github.com/Auslegung)
+2. [Sanaz Jamloo] (https://github.com/sanazjamloo)
+3. [Tom Murphree] (https://github.com/tmurphree)
