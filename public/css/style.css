@@ -7,7 +7,8 @@ body {
 header {
   display: flex;
   justify-content: space-around;
-  /*margin-bottom: 1%/* margin goes away at a certain point, need an @media query */*/
+  /*margin-bottom: 1%/* margin goes away at a certain point, need an @media query */
+  margin-bottom: 20px;
 }
 
 input[type=text],input[type=password] {
@@ -16,9 +17,9 @@ input[type=text],input[type=password] {
   padding: 0.5rem;
   font-size: 1rem;
 }
-input[type=text]:focus,input[type=password]:focus {
+/*input[type=text]:focus,input[type=password]:focus {
   border: 3px solid #555;
-}
+}*/
 
 form {
   font-family: Helvetica, sans-serif;
@@ -32,6 +33,11 @@ input[type=submit],.module-card-button {
   padding: 0.5rem;
   text-align: center;
   font-size: 1rem;
+  margin: 0.25rem;
+}
+
+input[type=submit]:active,.module-card-button:active {
+  background-color: rgba(29,40,4, 1);
 }
 
 .welcome  { /* <a> tags inside the .welcome class */
