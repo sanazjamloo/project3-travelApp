@@ -46,7 +46,7 @@
       </a>
 
       <div class="right">
-        <form class="" ng-submit="users.logout()" method="post">
+        <form class="logout" ng-submit="users.logout()" method="post">
           <input ng-if="users.currentUser" type="submit" name="logout" value="logout"> <!-- CHANGE NG-IF -->
         </form>
         <form ng-submit="users.search()">
