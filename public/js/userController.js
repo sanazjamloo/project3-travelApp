@@ -15,7 +15,7 @@
       this.signuperror = null;
       this.myTrips = [];
       this.searchedForTrips = [];
-      this.searchText = 'denver';
+      this.searchText = '';
       this.username = '';
 
       this.newTrip = {
