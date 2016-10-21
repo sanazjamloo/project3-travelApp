@@ -32,6 +32,9 @@ Trelp is a web application that allows users to keep track of their trips, and s
 - Express.js
 - MongoDB
 
+- Trello Board
+https://trello.com/b/QaAAZ3Ln/travel-app-ga-project-03
+
 - Wireframes
 https://wireframe.cc/pro/pp/9424bb5ea56104
 
