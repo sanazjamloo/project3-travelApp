@@ -10,6 +10,30 @@ header {
   /*margin-bottom: 1%/* margin goes away at a certain point, need an @media query */*/
 }
 
+input[type=text],input[type=password] {
+  border: none;
+  margin: 0.25rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+input[type=text]:focus,input[type=password]:focus {
+  border: 3px solid #555;
+}
+
+form {
+  font-family: Helvetica, sans-serif;
+}
+
+input[type=submit],.module-card-button {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  background-color: #452804;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
 .welcome  { /* <a> tags inside the .welcome class */
   display: inline-block;
   font-family: 'Josefin Slab', serif;
@@ -30,7 +54,8 @@ header {
   font-weight: 100;
   justify-content: center;
   text-align: center;
-  line-height: 60%;
+  line-height: 90%;
+  margin: 2rem;
 }
 
 .title a {
