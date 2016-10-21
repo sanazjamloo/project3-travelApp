@@ -1,7 +1,7 @@
 body {
   background-color: rgba(203,200,149, 0.4);
-  margin-left: 7rem;
-  margin-bottom: 8rem;
+  margin-left: 1rem;
+  margin-bottom: 3rem;
 }
 
 header {
@@ -53,8 +53,8 @@ h3 {
 
 }
 .home-image { /* image on the home state */
-  /*min-height: 100%;*/
-  height: auto;
+  min-height: 100%;
+  /*height: auto;*/
   min-width: 1024px;
   box-shadow:  10px 10px 10px 10px #888;
   margin-top: 1%;
