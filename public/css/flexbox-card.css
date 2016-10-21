@@ -3,26 +3,28 @@
 }
 
 .module-card-wrap {
-  max-width: 70%;
+  max-width: 95%;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
 }
 
 .module-card {
+  font-family: Helvetica, sans-serif;
   background: #fff;
   border: 1px solid #f1f1f1;
-  box-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-  min-width: 100%;
+  /*box-shadow: 1px 1px 2px rgba(0,0,0,0.05);*/
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  min-width: 275px;
   padding: 10px;
-  margin-bottom: 5%;
+  margin: 5%;
   display: flex;
   flex-direction: column;
 }
 
 .module-card-title {
   font-size: 120%;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .module-card-meta {
@@ -50,18 +52,46 @@
   height: auto;
 }
 
+.module-card-button-wrap{
+  display: flex;
+  /*flex-wrap: wrap;*/
+  /*margin: 0 auto;*/
+  justify-content: center;
+}
+
 .module-card-button {
-  background: seagreen;
+  background-color: rgba(69,40,4, 0.8);
   color: white;
   border: none;
   margin-top: auto;
   padding: 10px;
+  width: 90%;
+  margin: 15px;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 1400px) {
   .module-card {
-    width: 48%;
+    width: 24%;
+    max-width: 350px;
     margin: 0 auto 2%;
-    min-width: 0;
+  }
+}
+@media screen and (max-width: 1400px) and (min-width: 980px) {
+  .module-card {
+    width: 32%;
+    margin: 0 auto 2%;
+  }
+}
+@media screen and (max-width: 980px) and (min-width: 650px){
+  .module-card {
+    width: 47%;
+    margin: 0 auto 2%;
+  }
+}
+@media screen and (max-width: 650px){
+  .module-card {
+    width: 70%;
+    margin: 0 auto 2%;
+    min-width: 250px;
   }
 }
