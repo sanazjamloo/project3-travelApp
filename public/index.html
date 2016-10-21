@@ -17,8 +17,8 @@
 
       <div class="left">
         <div ng-show="true" class="login-register">
-          <form id="login" ng-submit="users.login()" method="post">
-            <p><strong>Log in</strong></p>
+          <form id="login" ng-submit="users.login()" method="post" ng-if="!users.currentUser">
+            <!-- <p><strong>Log in</strong></p> -->
             <input type="text" ng-model="users.username" placeholder="email...">
             <input type="password" ng-model="users.password" placeholder="password...">
             <input type="submit" name="test" value="Login">
@@ -27,7 +27,7 @@
             {{ users.signuperror }}
           </p>
           <form id="signup" ng-submit="users.signup()" method="post" ng-if="!users.currentUser">
-            <p><strong>Sign up</strong></p>
+            <!-- <p><strong>Sign up</strong></p> -->
             <input type="text" ng-model="users.signupusername" placeholder="email...">
             <input type="password" ng-model="users.signuppassword" placeholder="password...">
             <input type="submit" name="test" value="Sign up">
@@ -36,7 +36,6 @@
 
         <a ui-sref-active="active" ui-sref="user" ng-show="true" class="welcome" ng-if="users.currentUser"> <!-- CHANGE NG-HIDE -->
           <h3>Welcome, {{ users.currentUser }}!</h3>
-            <img  id="woman" src="https://pbs.twimg.com/media/Cjld9C0XIAEmdcd.jpg" alt="Woman on vacation, looking out over the city into the bay"/>
         </a>
       </div>
 

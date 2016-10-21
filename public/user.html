@@ -1,19 +1,33 @@
 <!-- You are inside <body ng-controller="UserController as users">  -->
-<div class="left-sidebar">
-  <form class="new-destination" ng-submit="users.addTrip()" method="post">
-    <h3>Enter a new trip</h3>
-    <label for="place">Destination: </label>
-    <input type="text" ng-model="users.newTrip.place" id="place" value=""><br>
-    <label for="dateStart">Start: </label>
-    <input type="date" ng-model="users.newTrip.dateStart" id="dateStart" value=""><br>
-    <label for="dateEnd">End: </label>
-    <input type="date" ng-model="users.newTrip.dateEnd" id="dateEnd" value=""><br>
-    <label for="description">Description: </label>
-    <textarea ng-model="users.newTrip.description" rows="6" cols="25" id="description"></textarea><br>
-    <label for="imageUrl">Image URL: </label>
-    <input type="text" ng-model="users.newTrip.imageUrl" id="imageUrl" value=""><br>
-    <input type="submit" name="submit" value="Add Trip">
+<div class="module-card" ng-show="users.showEditForm">
+  <form class="new-destination" ng-submit="users.editTrip(users.editedTrip)" method="post">
+    <div class="module-card-title"><input type="text" ng-model="users.editedTrip.place" id="place" value=""></div>
+    <div class="module-card-meta">
+      <div class="module-card-category">
+        <span class="fa fa-tag"></span>
+        <label for="dateStart">Start:      </label>
+        <span><input type="date" ng-model="users.editedTrip.dateStart" id="dateStart" placeholder="start date"></span>
+      </div>
+      <div class="module-card-author">
+        <label for="dateEnd">End:      </label>
+        <span class="fa fa-user"></span>
+        <span><input type="date" ng-model="users.editedTrip.dateEnd" id="dateEnd" placeholder=""></span>
+      </div>
+    </div> <!-- /module-card-meta -->
+
+    <div class="module-card-bottom">
+      <input type="url" ng-model="users.editedTrip.imageUrl" id="imageUrl" placeholder="image url">
+      <div>
+        <textarea ng-model="users.editedTrip.description" rows="6" cols="25" id="description" placeholder="describe your trip in 160 characters or less" maxlength="160"></textarea>
+      </div>
+      <div class="module-card-button-wrap">
+        <button class="module-card-button">Update!</button>
+      </div>
+    </div>
   </form>
+</div>
+
+<!-- <div class="left-sidebar">
   <form class="new-destination" ng-submit="users.editTrip(users.editedTrip)" method="post" ng-show="users.showEditForm">
     <h3>Edit trip</h3>
     <label for="place">Destination: </label>
@@ -28,16 +42,46 @@
     <input type="text" ng-model="users.editedTrip.imageUrl" id="imageUrl" value=""><br>
     <input type="submit" name="submit" value="Edit Trip">
   </form>
-</div>
+  <div class="search-form">
+    <form class="search" action="index.html" method="post">
+      <label for="search">Search: </label>
+      <input type="text" name="search" placeholder="city...">
+    </form>
+  </div>
+</div> -->
 
-<div class="search-form">
-  <form class="search" action="index.html" method="post">
-    <label for="search">Search: </label>
-    <input type="text" name="search" placeholder="city...">
-  </form>
-</div>
+
 
 <div class="module-card-wrap">
+  <!-- Add a new destination -->
+  <div class="module-card">
+    <form class="new-destination" ng-submit="users.addTrip()" method="post">
+      <div class="module-card-title"><input type="text" ng-model="users.newTrip.place" id="place" placeholder="Click to add location"></div>
+      <div class="module-card-meta">
+        <div class="module-card-category">
+          <span class="fa fa-tag"></span>
+          <label for="dateStart">Start:      </label>
+          <span><input type="date" ng-model="users.newTrip.dateStart" id="dateStart" placeholder="start date"></span>
+        </div>
+        <div class="module-card-author">
+          <label for="dateEnd">End:      </label>
+          <span class="fa fa-user"></span>
+          <span><input type="date" ng-model="users.editedTrip.dateEnd" id="dateEnd" placeholder=""></span>
+        </div>
+      </div> <!-- /module-card-meta -->
+
+      <div class="module-card-bottom">
+        <input type="url" ng-model="users.newTrip.imageUrl" id="imageUrl" placeholder="image url">
+        <div>
+          <textarea ng-model="users.newTrip.description" rows="6" cols="25" id="description" placeholder="describe your trip in 160 characters or less" maxlength="160"></textarea>
+        </div>
+        <div class="module-card-button-wrap">
+          <button class="module-card-button">Add!</button>
+        </div>
+      </div>
+    </form>
+  </div>
+<!-- Repeat through all destinations and display as cards -->
   <div class="module-card" ng-repeat="trip in users.myTrips">
     <div class="module-card-title">{{trip.place}}</div>
     <div class="module-card-meta">
